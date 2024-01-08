@@ -1,0 +1,34 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <!-- <Styles.Resources> -->
+  <!--   <SolidColorBrush x:Key="CreatedTextColor" Color="DimGray" /> -->
+  <!--   <SolidColorBrush x:Key="InfoTextColor" Color="CornflowerBlue" /> -->
+  <!--   <SolidColorBrush x:Key="SuccessTextColor" Color="#00FFA2" /> -->
+  <!--   <SolidColorBrush x:Key="WarnTextColor" Color="Orange" /> -->
+  <!--   <SolidColorBrush x:Key="ErrorTextColor" Color="#FC2A57" /> -->
+  <!-- </Styles.Resources> -->
+  <!-- -->
+  <!-- <Style Selector="ctrl|CheckoutStatusTextBlock:created"> -->
+  <!--   <Setter Property="Foreground" Value="{StaticResource CreatedTextColor}" /> -->
+  <!-- </Style> -->
+  <!-- -->
+  <!-- <Style Selector="ctrl|CheckoutStatusTextBlock:running"> -->
+  <!--   <Setter Property="Foreground" Value="{StaticResource InfoTextColor}" /> -->
+  <!-- </Style> -->
+  <!-- -->
+  <!-- <Style Selector="ctrl|CheckoutStatusTextBlock:successful"> -->
+  <!--   <Setter Property="Foreground" Value="{StaticResource SuccessTextColor}" /> -->
+  <!-- </Style> -->
+  <!-- -->
+  <!-- <Style Selector="ctrl|CheckoutStatusTextBlock:cancelled"> -->
+  <!--   <Setter Property="Foreground" Value="{StaticResource WarnTextColor}" /> -->
+  <!-- </Style> -->
+  <!-- -->
+  <!-- <Style Selector="ctrl|CheckoutStatusTextBlock:failed"> -->
+  <!--   <Setter Property="Foreground" Value="{StaticResource ErrorTextColor}" /> -->
+  <!-- </Style> -->
+  
+</Styles>

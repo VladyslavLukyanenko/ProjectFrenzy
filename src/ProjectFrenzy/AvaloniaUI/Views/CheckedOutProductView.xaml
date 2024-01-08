@@ -1,0 +1,61 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.CheckedOutProductView">
+  <UserControl.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter"></converters:BitmapValueConverter>
+
+    <LinearGradientBrush x:Key="PanelBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Offset="0"  Color="#0CFFFFFF"/>
+      <GradientStop Offset="1" Color="#0FAEAEAE"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush Color="White" Opacity=".29" x:Key="RegularTextForeground" />
+  </UserControl.Resources>
+  <Border CornerRadius="20" Padding="19, 17" Background="{StaticResource PanelBackground}">
+    <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto, Auto">
+      <Border
+        Height="61"
+        Width="61"
+        Margin="0,0,9,0"
+        CornerRadius="10"
+        Grid.RowSpan="3">
+        <Border.Background>
+          <ImageBrush Source="{Binding Picture, Converter={StaticResource BitmapValueConverter}}" Stretch="UniformToFill"/>
+        </Border.Background>
+      </Border>
+
+      <TextBlock
+        Grid.Column="1"
+        Text="{Binding Name}"
+        Foreground="#E61543"
+        FontSize="14"
+        Height="17"
+        Margin="0,0,0,3" />
+      
+      <TextBlock
+        Grid.Column="1"
+        Grid.Row="1"
+        Text="{Binding CheckoutDate}"
+        Foreground="{StaticResource RegularTextForeground}"
+        FontSize="14"
+        Height="16"
+        FontFamily="resm:ProjectFrenzy.Assets.Fonts.RobotoMono?assembly=ProjectFrenzy#Roboto Mono"
+        Margin="0,0,0,3" />
+      
+      <TextBlock
+        Grid.Column="1"
+        Grid.Row="2"
+        Text="{Binding CheckoutPrice, StringFormat=$\{0:N2\}}"
+        Foreground="{StaticResource RegularTextForeground}"
+        FontSize="14"
+        Height="16"
+        FontFamily="resm:ProjectFrenzy.Assets.Fonts.RobotoMono?assembly=ProjectFrenzy#Roboto Mono"
+        Margin="0,0,0,3" />
+    </Grid>
+
+  </Border>
+</UserControl>

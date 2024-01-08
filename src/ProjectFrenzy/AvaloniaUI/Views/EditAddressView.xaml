@@ -1,0 +1,102 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.EditAddressView">
+  <Grid
+    Grid.Row="1"
+    RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+    ColumnDefinitions="*, *">
+    <Grid.Styles>
+      <Style Selector="TextBlock.RegularLabel">
+        <Setter Property="Margin" Value="3,0,0,5" />
+      </Style>
+      <Style Selector="TextBlock.RegularLabel.Right">
+        <Setter Property="Margin" Value="11,0,0,5" />
+      </Style>
+      <Style Selector="TextBox">
+        <Setter Property="Margin" Value="0,0,0,15" />
+      </Style>
+      <Style Selector="TextBox.Left, ComboBox.Left">
+        <Setter Property="Margin" Value="0,0,8,15" />
+      </Style>
+      <Style Selector="TextBox.Right">
+        <Setter Property="Margin" Value="8,0,0,15" />
+      </Style>
+    </Grid.Styles>
+    <TextBlock Classes="RegularLabel" Text="First Name" />
+    <TextBox Grid.Row="1" Text="{Binding Address.FirstName}" Watermark="First Name" Classes="Left" />
+
+    <TextBlock Classes="RegularLabel Right" Text="Last Name" Grid.Column="1" />
+    <TextBox Grid.Row="1" Text="{Binding Address.LastName}" Watermark="Last Name" Grid.Column="1"
+             Classes="Right" />
+
+    <TextBlock Grid.Row="2" Classes="RegularLabel" Text="Address Line 1" />
+    <TextBox Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Address.AddressLine1}" Watermark="Address Line 1" />
+
+    <TextBlock Grid.Row="4" Classes="RegularLabel" Text="Address Line 2" />
+    <TextBox Grid.Row="5" Grid.ColumnSpan="2" Text="{Binding Address.AddressLine2}" Watermark="Address Line 2" />
+
+    <TextBlock Grid.Row="6" Classes="RegularLabel" Text="City" />
+    <TextBox Grid.Row="7" Text="{Binding Address.City}" Watermark="City" Classes="Left" />
+
+    <TextBlock
+      Grid.Row="6"
+      Classes="RegularLabel Right"
+      Text="{Binding SelectedCountry.PostalCodeLabel}"
+      Grid.Column="1" />
+    <TextBox
+      Grid.Row="7"
+      Text="{Binding Address.ZipCode}"
+      Watermark="{Binding SelectedCountry.PostalCodeLabel}"
+      Grid.Column="1"
+      Classes="Right" />
+
+    <TextBlock Grid.Row="8" Classes="RegularLabel" Text="Country" />
+    <ComboBox Grid.Row="9" Items="{Binding Countries}" SelectedItem="{Binding SelectedCountry}" Classes="Left">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Title}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+
+    <TextBlock Grid.Row="8" Classes="RegularLabel Right" Text="Phone Number" Grid.Column="1" />
+    <TextBox
+      Grid.Row="9"
+      Text="{Binding Address.PhoneNumber}"
+      Watermark="Phone Number"
+      Grid.Column="1"
+      Classes="Right" />
+
+    <TextBlock
+      IsVisible="{Binding IsProvinceLabelVisible}"
+      Grid.Row="10"
+      Classes="RegularLabel"
+      Text="{Binding SelectedCountry.ProvincesLabel}" />
+    
+    <TextBox
+      IsVisible="{Binding IsProvinceInputVisible}"
+      Text="{Binding SelectedProvinceText}"
+      Watermark="{Binding ProvincesLabel}"
+      Grid.ColumnSpan="2"
+      Grid.Row="11"
+      Classes="Left" />
+    
+    <ComboBox
+      IsVisible="{Binding IsProvinceListVisible}"
+      Grid.ColumnSpan="2"
+      Grid.Row="11"
+      Height="40"
+      Items="{Binding SelectedCountry.Provinces}"
+      SelectedItem="{Binding SelectedState}"
+      Classes="Left">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Title}" />
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+  </Grid>
+</UserControl>

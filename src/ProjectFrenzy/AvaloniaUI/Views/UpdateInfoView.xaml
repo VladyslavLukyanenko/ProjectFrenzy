@@ -1,0 +1,70 @@
+﻿<UserControl
+  xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+  xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+  x:Class="ProjectFrenzy.AvaloniaUI.Views.UpdateInfoView">
+  <Grid>
+    <StackPanel Orientation="Horizontal" IsVisible="{Binding !IsInProgress}">
+      <Button
+        IsVisible="{Binding AreCurrentVersionLatest}"
+        Grid.Column="1"
+        Command="{Binding CheckForUpdatesCommand}"
+        Classes="StandardButton"
+        VerticalAlignment="Center"
+      >
+        Check for Updates
+      </Button>
+      <Button
+        IsVisible="{Binding !AreCurrentVersionLatest}"
+        Content="{Binding NextVersion, StringFormat=Download and install \{0\}}"
+        Grid.Column="1"
+        Command="{Binding PrepareToUpdateCommand}"
+        Classes="StandardButton"
+        VerticalAlignment="Center" />
+    </StackPanel>
+
+    <StackPanel
+      IsVisible="{Binding IsInProgress}"
+      Orientation="Horizontal"
+      Spacing="10"
+    >
+      <TextBlock
+        Text="{Binding CurrentStatus}"
+        VerticalAlignment="Center" />
+
+      <ProgressBar
+        VerticalAlignment="Center"
+        Value="{Binding Progress}" />
+
+      <StackPanel Orientation="Horizontal">
+        <TextBlock
+          Text="{Binding Progress, StringFormat=\{0:N2\}%}"
+          VerticalAlignment="Center" />
+        <TextBlock
+          Text="{Binding DownloadedMb, StringFormat=\(\{0:N2\}/}"
+          VerticalAlignment="Center" />
+
+        <TextBlock
+          Text="{Binding TotalSizeMb, StringFormat=\{0:N2\} Mb\)}"
+          VerticalAlignment="Center" />
+
+      </StackPanel>
+      <Button
+        Command="{Binding CancelDownloadingCommand}"
+        VerticalAlignment="Center"
+        Classes="CircleButton"
+        Height="24"
+        Width="24">
+        <Image Source="/Assets/Icons/plus.png" Height="12">
+          <Image.RenderTransform>
+            <RotateTransform Angle="45" />
+          </Image.RenderTransform>
+        </Image>
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>

@@ -1,0 +1,193 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style Selector="ctrl|MetroWindow">
+    <Setter Property="Background" Value="{DynamicResource ThemeBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource AvalonBorderBrush}" />
+    <Setter Property="FontSize" Value="{DynamicResource FontSizeNormal}" />
+    <Setter Property="Foreground" Value="#BFBFBF" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}"
+                Background="{TemplateBinding Background}" Padding="0">
+          <VisualLayerManager>
+            <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto,Auto,*,Auto,Auto"
+                  Background="Transparent">
+              <Grid Grid.Row="0" Grid.RowSpan="5" Margin="-4" Grid.Column="1"
+                    RowDefinitions="Auto * Auto" ColumnDefinitions="Auto,Auto,*,Auto,Auto">
+                <Grid Grid.Row="1" Margin="0" Grid.Column="0" Grid.ColumnSpan="5"
+                      Background="{TemplateBinding Background}">
+                  <Grid RowDefinitions="Auto, *">
+
+                    <DockPanel Name="titlebar" Margin="0" Background="Transparent">
+                      <!--<Image Source="{TemplateBinding Icon, Converter={x:Static conv:IconImageConverter.Converter}}"
+                             Name="icon" Height="16" Width="16" Margin="5 0 0 0" Stretch="UniformToFill" DockPanel.Dock="Left" IsVisible="{TemplateBinding ClientDecorations}" />-->
+
+                      <TextBlock Text="{TemplateBinding Title}" Margin="25 15 0 0"
+                                 DockPanel.Dock="Left" Foreground="{TemplateBinding Foreground}"
+                                 IsVisible="{TemplateBinding ClientDecorations}" FontSize="14"
+                                 FontWeight="SemiBold" />
+
+                      <ContentControl Grid.ColumnSpan="1"
+                                      Content="{TemplateBinding TitleBarContent}" Margin="0"
+                                      DockPanel.Dock="Left"
+                                      Background="{DynamicResource ThemeBackgroundBrush}" />
+
+                      <Grid DockPanel.Dock="Right" HorizontalAlignment="Right" Margin="0"
+                            IsVisible="{TemplateBinding ClientDecorations, Mode=TwoWay}">
+                        <Grid.Styles>
+                          <Styles>
+                            <Style Selector="Button">
+                              <Setter Property="BorderBrush" Value="Transparent" />
+                              <Setter Property="Background" Value="Transparent" />
+                              <Setter Property="FontWeight" Value="SemiBold" />
+                            </Style>
+                            <Style Selector="Button:pressed  /template/ ContentPresenter">
+                              <Setter Property="Background" Value="Transparent" />
+                              <Setter Property="BorderThickness" Value="0" />
+                            </Style>
+                          </Styles>
+                        </Grid.Styles>
+                        <StackPanel Orientation="Horizontal" Margin="0,5,10,0">
+                          <!-- <Button Background="Transparent" BorderThickness="0" Name="restoreButton" Classes="ControlButton" /> -->
+
+                          <Button Background="Transparent" BorderThickness="0"
+                                  Name="minimiseButton" Classes="ControlButton" />
+
+                          <Button Background="Transparent" BorderThickness="0"
+                                  Classes="ControlButton" Name="closeButton" />
+                        </StackPanel>
+                      </Grid>
+                    </DockPanel>
+                    <Grid Grid.Row="1">
+                      <ContentPresenter Name="PART_ContentPresenter"
+                                        Content="{TemplateBinding Content}" Margin="0" />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid Background="Transparent" Width="10" Height="4" />
+                <Grid Background="Transparent" Grid.Column="1" Height="4" Grid.ColumnSpan="2"
+                      Cursor="SizeNorthSouth" Name="topHorizontalGrip" />
+                <Grid Background="Transparent" Width="10" Height="4" Grid.Column="4" />
+
+                <Grid Background="Transparent" Width="10" Height="4" Grid.Row="2" />
+                <Grid Background="Transparent" Grid.Column="1" Height="4" Grid.ColumnSpan="2"
+                      Grid.Row="2" Cursor="SizeNorthSouth" Name="bottomHorizontalGrip" />
+                <Grid Background="Transparent" Width="10" Height="4" Grid.Column="4" Grid.Row="2" />
+              </Grid>
+
+              <Grid Background="Transparent" Width="4" Height="10" Name="topLeftGrip"
+                    Cursor="TopLeftCorner" />
+              <Grid Background="Transparent" Width="4" Grid.Row="1" Grid.RowSpan="2"
+                    Cursor="SizeWestEast" Name="leftVerticalGrip" />
+              <Grid Background="Transparent" Width="4" Height="10" Grid.Row="4" Name="bottomLeftGrip"
+                    Cursor="BottomLeftCorner" />
+
+              <Grid Background="Transparent" Width="4" Height="10" Grid.Column="2" Name="topRightGrip"
+                    Cursor="TopRightCorner" />
+              <Grid Background="Transparent" Width="4" Grid.Row="1" Grid.RowSpan="2" Grid.Column="2"
+                    Cursor="SizeWestEast" Name="rightVerticalGrip" />
+              <Grid Background="Transparent" Width="4" Height="10" Grid.Row="4" Grid.Column="2"
+                    Name="bottomRightGrip" Cursor="BottomRightCorner" />
+            </Grid>
+          </VisualLayerManager>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ctrl|MetroWindow /template/ Button#minimiseButton">
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Height="20" Width="20" Background="Transparent">
+          <Path Stretch="UniformToFill" UseLayoutRounding="True" StrokeThickness="2" Height="3" Width="10"
+                Data="M 0.314401 24.49792 H 3 z"
+                Stroke="White" />
+        </Panel>
+
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ctrl|MetroWindow.MacOS /template/ Button#minimiseButton">
+    <Setter Property="Margin" Value="4 4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Path
+          Stretch="UniformToFill"
+          Fill="#FFC12E"
+          UseLayoutRounding="True"
+          StrokeThickness="0"
+          Height="13"
+          Width="13"
+          Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <!-- -->
+  <!-- <Style Selector="ctrl|MetroWindow /template/ Button#restoreButton"> -->
+  <!--   <Setter Property="Margin" Value="4 4" /> -->
+  <!--   <Setter Property="Template"> -->
+  <!--     <ControlTemplate> -->
+  <!--       <Path -->
+  <!--         Stretch="UniformToFill" -->
+  <!--         UseLayoutRounding="True" -->
+  <!--         StrokeThickness="0" -->
+  <!--         Height="13" -->
+  <!--         Width="13" -->
+  <!--         Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2" /> -->
+  <!--     </ControlTemplate> -->
+  <!--   </Setter> -->
+  <!-- </Style> -->
+
+  <!-- <Style Selector="ctrl|MetroWindow /template/ Button#restoreButton /template/ Path"> -->
+  <!--   <Setter Property="Fill" Value="#29CF41"/> -->
+  <!-- </Style> -->
+
+  <Style Selector="ctrl|MetroWindow /template/ Button#closeButton">
+    <Setter Property="Margin" Value="4 4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Panel Background="Transparent" Height="20" Width="20">
+          <Path
+            Stretch="UniformToFill"
+            UseLayoutRounding="True"
+            StrokeThickness="0"
+            Height="14"
+            Width="14"
+            Fill="White"
+            Data="M8.4049 7.0025L13.6949 1.7125C14.0849 1.3225 14.0849 0.6925 13.6949 0.3025C13.3049 -0.0875002 12.6749 -0.0875002 12.2849 0.3025L6.9949 5.5925L1.70494 0.2925C1.31494 -0.0975 0.684941 -0.0975 0.294941 0.2925C-0.0950586 0.6825 -0.0950586 1.3125 0.294941 1.7025L5.5849 7.0025L0.294941 12.2925C-0.0950586 12.6825 -0.0950586 13.3125 0.294941 13.7025C0.484941 13.9025 0.734941 14.0025 0.994941 14.0025C1.25494 14.0025 1.50494 13.9025 1.70494 13.7125L6.9949 8.4125L12.2849 13.7025C12.4849 13.9025 12.7349 14.0025 12.9949 14.0025C13.2549 14.0025 13.5049 13.9025 13.7049 13.7125C14.0949 13.3225 14.0949 12.6925 13.7049 12.3025L8.4049 7.0025Z" />
+        </Panel>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ctrl|MetroWindow.MacOS /template/ Button#closeButton">
+    <Setter Property="Margin" Value="4 4" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Path
+          Stretch="UniformToFill"
+          UseLayoutRounding="True"
+          StrokeThickness="0"
+          Height="13"
+          Width="13"
+          Fill="#FF605A"
+          Data="M14,7 A7,7 0 0,0 0,7 M0,7 A7,7 0 1,0 14,7 M7,3l0,5 M7,9l0,2" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ctrl|MetroWindow /template/ Button.ControlButton:pointerover /template/ Path">
+    <Setter Property="Opacity" Value=".8" />
+  </Style>
+  <Style Selector="ctrl|MetroWindow /template/ Button.ControlButton:pressed /template/ Path">
+    <Setter Property="Opacity" Value=".8" />
+  </Style>
+
+  <Style Selector="ctrl|MetroWindow:maximised">
+    <Setter Property="BorderThickness" Value="0" />
+  </Style>
+  <Style Selector="ctrl|MetroWindow">
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+</Styles>

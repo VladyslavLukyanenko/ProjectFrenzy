@@ -1,0 +1,94 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="240">
+      <ComboBox SelectedIndex="0" VerticalAlignment="Top">
+        <ComboBoxItem>Inline Items</ComboBoxItem>
+        <ComboBoxItem>Inline Item 2</ComboBoxItem>
+        <ComboBoxItem>Inline Item 3</ComboBoxItem>
+        <ComboBoxItem>Inline Item 4</ComboBoxItem>
+      </ComboBox>
+    </Border>
+  </Design.PreviewWith>
+  <Styles.Resources>
+    <SolidColorBrush x:Key="ComboBoxBackground" Color="White" Opacity=".08" />
+    <SolidColorBrush x:Key="ComboBoxBorderBrush" Color="#4B4B4B" />
+    <SolidColorBrush x:Key="ComboBoxSelectionBorderBrush" Color="#5B5B5B" />
+    <SolidColorBrush x:Key="ComboBoxFocusBorderBrush" Color="#7B7B7B" />
+    <SolidColorBrush x:Key="ComboBoxForeground" Color="#848088" />
+  </Styles.Resources>
+  <Style Selector="ComboBox">
+    <Setter Property="Background" Value="{StaticResource ComboBoxBackground}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource ComboBoxBorderBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="Padding" Value="12,11"/>
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="Foreground" Value="{StaticResource ComboBoxForeground}" />
+    <Setter Property="MinHeight" Value="20"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <Grid ColumnDefinitions="*,Auto">
+            <ContentControl Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding ItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"/>
+            <ToggleButton Name="toggle"
+                          BorderThickness="0"
+                          Background="Transparent"
+                          ClickMode="Press"
+                          Focusable="False"
+                          IsChecked="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                          Grid.Column="1">
+              <Path Fill="{DynamicResource ComboBoxForeground}"
+                    Width="13"
+                    Height="8"
+                    Stretch="Uniform"
+                    Margin="0,5,8,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Data="M7.50138 6.50153L0.138819 0.125361L14.8639 0.125363L7.50138 6.50153Z"/>
+            </ToggleButton>
+            <Popup Name="PART_Popup"
+                   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                   MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                   PlacementTarget="{TemplateBinding}"
+                   StaysOpen="False">
+              <Border BorderBrush="{DynamicResource ThemeBorderMidBrush}"
+                      CornerRadius="0"
+                      BorderThickness="1">
+                <ScrollViewer>
+                  <ItemsPresenter Name="PART_ItemsPresenter"
+                                  Items="{TemplateBinding Items}"
+                                  ItemsPanel="{TemplateBinding ItemsPanel}"
+                                  ItemTemplate="{TemplateBinding ItemTemplate}"
+                                  VirtualizationMode="{TemplateBinding VirtualizationMode}"
+                              />
+                </ScrollViewer>
+              </Border>
+            </Popup>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ComboBox /template/ Border#border">
+    <Setter Property="CornerRadius" Value="5"/>
+  </Style>
+  <Style Selector="ComboBox:pointerover /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{StaticResource ComboBoxFocusBorderBrush}"/>
+  </Style>
+  <Style Selector="ComboBox:disabled /template/ Border#border">
+    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+  </Style>
+  <Style Selector="ComboBox[IsDropDownOpen=True] /template/ Border#border">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+  <Style Selector="ComboBox[IsDropDownOpen=True] /template/ ToggleButton#toggle">
+    <Setter Property="Opacity" Value="0" />
+  </Style>
+</Styles>

@@ -1,0 +1,55 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.FlashsaleItemPickerView">
+  <UserControl.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+  </UserControl.Resources>
+  <Grid RowDefinitions="Auto, Auto">
+    <Border
+      Height="132"
+      Width="199"
+      CornerRadius="10"
+      Margin="0,0,0,13">
+      <Border.Background>
+        <ImageBrush Source="{Binding Picture, Converter={StaticResource BitmapValueConverter}}" Stretch="UniformToFill" />
+      </Border.Background>
+    </Border>
+
+    <StackPanel Spacing="3" Width="199" Grid.Row="1">
+      <StackPanel.Styles>
+        <Styles>
+          <Style Selector="TextBlock.DropName">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Width" Value="199" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+          </Style>
+        </Styles>
+      </StackPanel.Styles>
+      <TextBlock IsVisible="{Binding !IsStartedAlready}" Text="{Binding Name}" Foreground="#726F75" Classes="DropName" />
+      <TextBlock IsVisible="{Binding IsStartedAlready}" Text="{Binding Name}" Foreground="#97fd96" Classes="DropName" />
+
+      <TextBlock
+        Text="{Binding StartTime, Converter={x:Static converters:HumanReadableTimeToStringConverter.Instance}}"
+        FontWeight="Bold"
+        FontSize="14"
+        IsVisible="{Binding !IsStartedAlready}"
+        Foreground="#fdfd96" />
+
+      <TextBlock Text="{Binding FormattedPriceRange}" FontWeight="Bold" FontSize="12" />
+      <StackPanel Spacing="5" Orientation="Horizontal">
+        <TextBlock Text="Pickup:" FontSize="10" />
+        <TextBlock
+          Text="{Binding Pickup, Converter={x:Static converters:BooleanToStringConverter.Instance}}"
+          FontWeight="Bold"
+          FontSize="10" />
+      </StackPanel>
+      <TextBlock Text="{Binding Dropzone}" TextWrapping="Wrap" FontSize="10" />
+      <TextBlock Text="{Binding ShopName}" TextWrapping="Wrap" FontSize="10" />
+    </StackPanel>
+  </Grid>
+</UserControl>

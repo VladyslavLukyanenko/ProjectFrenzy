@@ -1,0 +1,88 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
+    <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+    <UseAppHost>true</UseAppHost>
+    <!--        <PublishReadyToRun Condition="$([MSBuild]::IsOsPlatform('Windows'))">true</PublishReadyToRun>-->
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CFBundleName>ProjectFrenzy</CFBundleName>
+    <CFBundleDisplayName>ProjectFrenzy</CFBundleDisplayName>
+    <CFBundleIdentifier>gg.projectindustries.ProjectFrenzy</CFBundleIdentifier>
+    <CFBundleIconFile>Logo.icns</CFBundleIconFile>
+    <CFBundlePackageType>AAPL</CFBundlePackageType>
+    <CFBundleVersion>1.0.214.0</CFBundleVersion>
+    <CFBundleShortVersionString>1.0.214.0</CFBundleShortVersionString>
+    <CFBundleExecutable>ProjectFrenzy</CFBundleExecutable>
+    <NSPrincipalClass>NSApplication</NSPrincipalClass>
+    <NSHighResolutionCapable>true</NSHighResolutionCapable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Logo.icns">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Compile Update="**\*.xaml.cs">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+    <AvaloniaResource Include="**\*.xaml">
+      <SubType>Designer</SubType>
+    </AvaloniaResource>
+    <AvaloniaResource Include="Assets\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Fonts\**\*.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Assets\Fonts\**\*.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="0.9.10" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="0.9.10" />
+    <PackageReference Include="Avalonia.Desktop" Version="0.9.10" />
+    <PackageReference Include="Avalonia.ReactiveUI" Version="0.9.10" />
+    <PackageReference Include="OxyPlot.Avalonia-alpha-2020-04-15" Version="1.0.0" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.4.17" />
+    <PackageReference Include="Splat.Autofac" Version="9.5.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="3.1.6" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.6" />
+    <PackageReference Include="Dotnet.Bundle" Version="0.9.13" />
+
+    <PackageReference Include="GitVersionTask" Version="5.3.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+
+
+    <PackageReference Include="DiscordRichPresence" Version="1.0.150" />
+    <PackageReference Include="FluentValidation" Version="9.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.6" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="ReactiveUI.Fody" Version="11.4.17" />
+    <PackageReference Include="Sentry" Version="2.1.4" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOsPlatform('Windows'))">
+    <PackageReference Include="Gapotchenko.Eazfuscator.NET" Version="2020.2.478" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::IsOSPlatform('OSX'))">
+    <PackageReference Include="Obfuscar" Version="2.2.26">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+
+    <None Remove="obfuscar.xml" />
+    <Content Include="obfuscar.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

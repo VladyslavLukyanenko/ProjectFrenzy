@@ -1,0 +1,156 @@
+﻿<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ProjectFrenzy.AvaloniaUI"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             xmlns:sys="clr-namespace:System"
+             xmlns:avaloniaUi="clr-namespace:ProjectFrenzy.AvaloniaUI"
+             x:Class="ProjectFrenzy.AvaloniaUI.App">
+  <Application.DataTemplates>
+    <avaloniaUi:ViewLocator />
+  </Application.DataTemplates>
+
+  <Application.Resources>
+    <LinearGradientBrush x:Key="MainWindowBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Offset="0" Color="#1C1B1B" />
+      <GradientStop Offset="1" Color="#1E1E1E" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="EditorBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Offset="0" Color="#212121" />
+      <GradientStop Offset="1" Color="#202020" />
+    </LinearGradientBrush>
+    <!-- <x:String x:Key="RegularFontNormal">resm:ProjectFrenzy.Assets.Fonts.SFPro.?assembly=ProjectFrenzy#SF-Pro-Display</x:String> -->
+    
+
+    
+    
+  </Application.Resources>
+
+  <Application.Styles>
+    <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml" />
+    <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseLight.xaml" />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Default.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/IconButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/CircleButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/NavButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardDataGrid.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardScrollBar.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardTextBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/SwitchlikeRadioButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/AccentTextBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/PrimaryButton.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardComboBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardComboBoxItem.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardCheckBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardListBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/StandardListBoxItem.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/CarouselLikeListBox.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/CarouselLikeListBoxItem.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/RoundedSwitchesGroup.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/MetroWindow.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/NotificationToast.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/CheckoutStatusTextBlock.xaml" />
+    <StyleInclude Source="avares://ProjectFrenzy/AvaloniaUI/Controls/PopupButton.xaml" />
+
+    <!-- Add the line below to get OxyPlot UI theme applied. -->
+    <StyleInclude Source="resm:OxyPlot.Avalonia.Themes.Default.xaml?assembly=OxyPlot.Avalonia" />
+
+    <Style Selector="Border.NavigationMenu">
+      <Setter Property="CornerRadius" Value="14" />
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Offset="0" Color="#11FFFFFF" />
+            <GradientStop Offset="1" Color="#17B4B4B4" />
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style Selector="Border.RoundedContainer">
+      <Setter Property="CornerRadius" Value="20" />
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+            <GradientStop Offset="0" Color="#0F757575" />
+            <GradientStop Offset="1" Color="#0F777777" />
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
+    </Style>
+
+    <Style Selector="TextBlock.Heading">
+      <Setter Property="FontSize" Value="45" />
+      <Setter Property="Foreground" Value="#EA2751" />
+      <Setter Property="Height" Value="60" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="TextBlock.SecondAccentHeading">
+      <Setter Property="FontSize" Value="24" />
+      <Setter Property="Foreground" Value="#E61543" />
+      <Setter Property="FontWeight" Value="SemiBold" />
+    </Style>
+
+    <Style Selector="TextBlock.SecondHeading">
+      <Setter Property="FontSize" Value="18" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
+      <Setter Property="Height" Value="24" />
+    </Style>
+
+    <Style Selector="TextBlock.ThirdHeading">
+      <Setter Property="FontSize" Value="14" />
+      <Setter Property="Foreground" Value="#FFFFFF" />
+    </Style>
+
+    <Style Selector="TextBlock.EmphasedText">
+      <Setter Property="Foreground" Value="#dbdbdb" />
+      <Setter Property="FontSize" Value="13" />
+      <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+    <Style Selector="TextBlock.SucessText">
+      <Setter Property="Foreground" Value="#00FFA2" />
+      <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <Style Selector="TextBlock.FailureText">
+      <Setter Property="Foreground" Value="#FC2A57" />
+      <Setter Property="FontSize" Value="13" />
+    </Style>
+
+    <Style Selector="TextBlock.RegularLabel">
+      <Setter Property="Foreground" Value="#848088" />
+      <Setter Property="FontSize" Value="12" />
+      <Setter Property="Height" Value="16" />
+    </Style>
+
+    <Style Selector="Border.NavigationMenu Image.LogoIcon">
+      <Setter Property="Margin" Value="0 15 0 50" />
+    </Style>
+
+    <Style Selector="Border.NavigationMenu ctrl|NavButton">
+      <Setter Property="Margin" Value="10,0" />
+    </Style>
+
+    <Style Selector="Grid.HeadingContainer">
+      <Setter Property="Margin" Value="0,10,0,15" />
+    </Style>
+
+    <Style Selector="TextBox.ProxiesTextArea /template/ Border">
+      <Setter Property="CornerRadius" Value="19" />
+    </Style>
+
+
+    <Style Selector="Border.EditorGroupBox">
+      <Setter Property="CornerRadius" Value="18" />
+      <Setter Property="Background" Value="{StaticResource EditorBackground}" />
+      <Setter Property="Padding" Value="38, 24" />
+    </Style>
+
+    <Style Selector="Border.TaskEditorGroupBox">
+      <Setter Property="CornerRadius" Value="18" />
+      <Setter Property="Background" Value="{StaticResource EditorBackground}" />
+      <Setter Property="Padding" Value="21, 16" />
+    </Style>
+  </Application.Styles>
+</Application>

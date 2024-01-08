@@ -1,0 +1,78 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <Styles.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+  </Styles.Resources>
+  <Design.PreviewWith>
+    <ctrl:NavButton
+      IsActive="True"
+      ActiveIconSrc="/Assets/Icons/dashboard_active.png"
+      NormalIconSrc="/Assets/Icons/dashboard_normal.png" />
+  </Design.PreviewWith>
+  <Style Selector="ctrl|NavButton">
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border>
+          <Grid>
+            <Image Classes="IconNorm"
+                   Source="{TemplateBinding NormalIconSrc, Converter={StaticResource BitmapValueConverter}}" />
+            <Image Classes="IconActive"
+                   Source="{TemplateBinding ActiveIconSrc, Converter={StaticResource BitmapValueConverter}}" />
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ctrl|NavButton Border">
+    <Setter Property="Padding" Value="9" />
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#ffffff" Opacity=".05" />
+      </Setter.Value>
+    </Setter>
+    <Setter Property="CornerRadius" Value="10" />
+  </Style>
+
+  <Style Selector="ctrl|NavButton Image.IconActive">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+
+
+  <Style Selector="ctrl|NavButton:pointerover Border">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#ffffff" Opacity=".1" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style Selector="ctrl|NavButton[IsActive=true] Border">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#e51442" Opacity=".1" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+  <Style
+    Selector="ctrl|NavButton[IsActive=true] Image.IconActive, ctrl|NavButton:pointerover Image.IconActive">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+  <Style
+    Selector="ctrl|NavButton[IsActive=true] Image.IconNorm, ctrl|NavButton:pointerover Image.IconNorm">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+
+  <Style Selector="ctrl|NavButton[IsActive=true]:pressed Border, ctrl|NavButton:pointerover:pressed Border">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#ffffff" Opacity=".05" />
+      </Setter.Value>
+    </Setter>
+  </Style>
+</Styles>

@@ -1,0 +1,24 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:ProjectFrenzy.Core.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="720"
+        x:Class="ProjectFrenzy.AvaloniaUI.Views.PreviewWindow"
+        Icon="/Assets/logo.png"
+        MinWidth="1250"
+        MinHeight="700"
+        Width="1280"
+        Height="820"
+        Title="Preview">
+    <!--<Design.DataContext>
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>-->
+    <Grid>
+        <Border Padding="24">
+            <Border.Background>
+                <ImageBrush Source="{Binding $parent[Window].RenderedControlBitmap}" />
+            </Border.Background>
+        </Border>
+    </Grid>
+</Window>

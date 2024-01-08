@@ -1,0 +1,286 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="1240" d:DesignHeight="600"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.TaskEditorView">
+  <UserControl.Styles>
+    <Style Selector="Border.TaskEditGroupPanel">
+      <Setter Property="CornerRadius" Value="20" />
+      <Setter Property="Padding" Value="23, 14" />
+      <Setter Property="Background">
+        <Setter.Value>
+          <SolidColorBrush Color="White" Opacity=".03" />
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+  <Grid RowDefinitions="*, Auto" Name="Container">
+    <!-- <Grid.Background> -->
+    <!-- <ImageBrush Source="{Binding $parent[UserControl].MainWindowContentPicture}" Stretch="UniformToFill"/> -->
+    <!-- </Grid.Background> -->
+    <Grid.Background>
+      <SolidColorBrush Color="Black" Opacity=".34" />
+    </Grid.Background>
+
+    <Button Command="{Binding CloseCommand}" Opacity="0" />
+    <Grid.Styles>
+      <Style Selector="TextBlock.RegularLabel">
+        <Setter Property="Margin" Value="3,0,0,7" />
+      </Style>
+    </Grid.Styles>
+    <Border Grid.Row="1" Classes="TaskEditorGroupBox" CornerRadius="18, 18, 0, 0">
+      <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *">
+        <TextBlock Text="Create Task" Classes="SecondAccentHeading" Margin="20,0,0,14" />
+
+        <Grid ColumnDefinitions="*, Auto, Auto" Grid.Column="1" IsVisible="{Binding IsSizeSelectVisible}">
+
+          <ScrollViewer HorizontalScrollBarVisibility="Auto" Margin="0,3,0,0">
+            <StackPanel>
+              <ItemsPresenter
+                Items="{Binding SelectedSizes}"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right">
+                <ItemsPresenter.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="5" />
+                  </ItemsPanelTemplate>
+                </ItemsPresenter.ItemsPanel>
+                <ItemsPresenter.ItemTemplate>
+                  <DataTemplate>
+                    <Border
+                      CornerRadius="10"
+                      Padding="3"
+                      BorderThickness="2"
+                      BorderBrush="#333333"
+                      Background="#555555"
+                      MinWidth="50">
+                      <Grid ColumnDefinitions="*, Auto">
+                        <TextBlock Text="{Binding .}" Margin="5,0,0,0" />
+
+                        <Button
+                          Classes="CircleButton"
+                          Grid.Column="1"
+                          Command="{Binding $parent[UserControl].DataContext.RemoveSelectedSizeCommand}"
+                          CommandParameter="{Binding .}"
+                          Height="16"
+                          Margin="10, 0, 0, 0"
+                          Width="16">
+                          <Image Source="/Assets/Icons/plus.png" Height="10" Width="10">
+                            <Image.RenderTransform>
+                              <RotateTransform Angle="45" />
+                            </Image.RenderTransform>
+                          </Image>
+                        </Button>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsPresenter.ItemTemplate>
+              </ItemsPresenter>
+            </StackPanel>
+
+          </ScrollViewer>
+          <Grid Grid.Column="1">
+            <ctrl:PopupButton
+              IsVisible="{Binding CanSizeBeSelected}"
+              Margin="10, 0, 0, 0"
+              VerticalAlignment="Top"
+              SelectedItem="{Binding SelectedSize}"
+              Items="{Binding Sizes}"
+              Text="Size"
+              Height="32"
+              BorderThickness="0"
+              BorderBrush="Transparent"
+              Background="Black"
+              Foreground="#DB1A43" />
+          </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" ColumnDefinitions="*, 400">
+          <Border Classes="TaskEditGroupPanel" Margin="0,0,17,0">
+            <Grid>
+              <Grid RowDefinitions="Auto, *" IsVisible="{Binding !IsDropSelected}">
+                <StackPanel IsVisible="{Binding !ShowManualFlashsaleInput}" Orientation="Horizontal">
+                  <TextBlock Text="Select Item" VerticalAlignment="Center" Classes="ThirdHeading" Margin="0,0,0,14" />
+                  <Button
+                    Command="{Binding ToggleFlashsaleManualInputCommand}"
+                    VerticalAlignment="Center"
+                    Classes="CircleButton"
+                    Margin="10,0,0,15"
+                    Height="24"
+                    Width="24">
+                    <Image Source="/Assets/Icons/plus.png" Height="12" />
+                  </Button>
+                </StackPanel>
+                
+                <StackPanel IsVisible="{Binding ShowManualFlashsaleInput}" Orientation="Horizontal">
+                  <TextBox
+                    Width="250"
+                    Height="30"
+                    Padding="10, 0"
+                    Watermark="Enter password here"
+                    Text="{Binding ManualFlashsalePassword}"
+                    VerticalAlignment="Center"
+                    Margin="0,0,0,14" />
+                  <Button
+                    Command="{Binding AddFlashsaleManuallyCommand}"
+                    VerticalAlignment="Center"
+                    Classes="CircleButton"
+                    Margin="10,0,0,10"
+                    Height="24"
+                    Width="24">
+                    <Image Source="/Assets/Icons/plus.png" Height="12" />
+                  </Button>
+                  <Button
+                    Command="{Binding ToggleFlashsaleManualInputCommand}"
+                    VerticalAlignment="Center"
+                    Classes="CircleButton"
+                    Background="Transparent"
+                    Margin="3,0,0,10"
+                    Height="24"
+                    Width="24">
+                    <Image Source="/Assets/Icons/plus.png" Height="16">
+                      <Image.RenderTransform>
+                        <RotateTransform Angle="45" />
+                      </Image.RenderTransform>
+                    </Image>
+                  </Button>
+                </StackPanel>
+
+                <ctrl:CarouselLikeListBox
+                  IsVisible="{Binding !ShowManualFlashsaleInput}"
+                  Grid.Row="1"
+                  Items="{Binding Drops}"
+                  SelectedItem="{Binding SelectedDrop}" />
+              </Grid>
+              <Grid RowDefinitions="Auto, *" IsVisible="{Binding IsDropSelected}">
+                <StackPanel Orientation="Horizontal" Height="17" Spacing="10" Margin="0,0,5,0">
+                  <Button
+                    Height="17"
+                    VerticalAlignment="Center"
+                    Classes="CircleButton"
+                    Command="{Binding ClearDropSelectionCommand}"
+                    Background="Transparent"
+                    Padding="0">
+                    <Path
+                      Data="M0.348632 5.628C0.183677 5.91398 0.2236 6.28485 0.4684 6.52965L4.9684 11.0297C5.1184 11.1722 5.3059 11.2472 5.50091 11.2472C5.69591 11.2472 5.88341 11.1722 6.03341 11.0297C6.32591 10.7372 6.32591 10.2647 6.03341 9.97215L2.80844 6.74715H13.0008C13.4133 6.74715 13.7508 6.40965 13.7508 5.99715C13.7508 5.58465 13.4133 5.24715 13.0008 5.24715H2.80836L6.02591 2.02962C6.31841 1.73712 6.31841 1.26462 6.02591 0.972122C5.73341 0.679622 5.2609 0.679622 4.9684 0.972122L0.503875 5.43668C0.44227 5.49135 0.389665 5.556 0.348632 5.628Z"
+                      Width="14" Height="10" Fill="#FFFFFF" />
+                  </Button>
+
+                  <TextBlock
+                    Height="17"
+                    Text="{Binding SelectedDrop.Name}"
+                    Classes="ThirdHeading"
+                    Margin="0,0,0,14"
+                    VerticalAlignment="Center" />
+                </StackPanel>
+                <ctrl:CarouselLikeListBox Grid.Row="1" Items="{Binding Products}"
+                                          SelectedItem="{Binding SelectedProduct}" />
+              </Grid>
+            </Grid>
+          </Border>
+          <Border Grid.Column="1" Classes="TaskEditGroupPanel">
+            <Border.Styles>
+              <Styles>
+                <Style Selector="TextBox">
+                  <Setter Property="Foreground" Value="#E61543" />
+                </Style>
+                <Style Selector="ComboBox">
+                  <Setter Property="Foreground" Value="#E61543" />
+                </Style>
+              </Styles>
+            </Border.Styles>
+            <Grid RowDefinitions="Auto, Auto">
+              <Grid ColumnDefinitions="Auto, *" Margin="0,0,0,14">
+                <TextBlock Text="Task Options" Classes="ThirdHeading" />
+                <CheckBox Grid.Column="1" HorizontalAlignment="Right" IsChecked="{Binding UseProxies}">Use Proxies</CheckBox>
+              </Grid>
+              <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto">
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto" Margin="0,0,0,17">
+                  <TextBlock Classes="RegularLabel" Text="Profle" />
+                  <ComboBox
+                    Grid.Row="1"
+                    Margin="0,0,23,0"
+                    Items="{Binding Profiles}"
+                    SelectedItem="{Binding SelectedProfile}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding ProfileName}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+
+
+
+                  <TextBlock Grid.Column="1" Classes="RegularLabel" Text="Email (optional)" />
+                  <ComboBox
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Width="150"
+                    Items="{Binding Emails}"
+                    SelectedItem="{Binding PreferredEmail}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Value}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                </Grid>
+                <Grid Grid.Row="1" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto" Margin="0,0,0,17">
+                  <TextBlock Classes="RegularLabel" Text="Checkout Delay" />
+                  <TextBox Watermark="Checkout Delay" Grid.Row="1" Width="118" Margin="0,0,23,0"
+                           Text="{Binding CheckoutDelay}" />
+
+                  <TextBlock Grid.Column="1" Classes="RegularLabel" Text="Checkout mode" />
+                  <ComboBox
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    MinWidth="118"
+                    Items="{Binding CheckoutModes}"
+                    SelectedItem="{Binding Mode}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding .}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+                </Grid>
+                <Grid Grid.Row="2" ColumnDefinitions="Auto,*, Auto" RowDefinitions="Auto, Auto">
+                  <TextBlock Classes="RegularLabel" Text="Quantity" />
+                  <TextBox Watermark="Quantity" Grid.Row="1" Width="78" Margin="0,0,16,0" Text="{Binding Quantity}" />
+
+
+                  <TextBlock Grid.Column="1" Classes="RegularLabel" Text="Emulator (optional)" />
+                  <ComboBox
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    MinWidth="118"
+                    Items="{Binding Emulators}"
+                    SelectedItem="{Binding PreferredEmulator}">
+                    <ComboBox.ItemTemplate>
+                      <DataTemplate>
+                        <TextBlock Text="{Binding Ip}" />
+                      </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                  </ComboBox>
+
+                  <Button
+                    Command="{Binding SaveCommand}"
+                    Classes="CircleButton"
+                    Grid.Column="2"
+                    Grid.Row="1"
+                    Margin="25,0,0,0"
+                    Height="38"
+                    Width="38">
+                    <Image Source="/Assets/Icons/plus.png" Height="22" />
+                  </Button>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Border>
+        </Grid>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

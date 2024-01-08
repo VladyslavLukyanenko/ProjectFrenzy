@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<Obfuscator>
+    <Var name="InPath" value="."/>
+    <Var name="OutPath" value="./Obfuscator_Output"/>
+    <Var name="KeepPublicApi" value="false"/>
+    <Var name="HidePrivateApi" value="true"/>
+    <Var name="RenameProperties" value="true"/>
+    <Var name="RenameEvents" value="true"/>
+    <Var name="RenameFields" value="true"/>
+    <Var name="UseUnicodeNames" value="false"/>
+    <Var name="HideStrings" value="true"/>
+    <Var name="OptimizeMethods" value="true"/>
+    <Var name="SuppressIldasm" value="true"/>
+
+
+    <Module file="$(InPath)/ProjectFrenzy.dll">
+        <SkipNamespace name="CompiledAvaloniaXaml*"/>
+        <SkipNamespace name="ProjectFrenzy.AvaloniaUI"/>
+        <SkipNamespace name="ProjectFrenzy.AvaloniaUI*"/>
+
+        <SkipNamespace name="ProjectFrenzy.Core.Model.*"/>
+        <SkipNamespace name="ProjectFrenzy.Core.ViewModels*"/>
+        <SkipNamespace name="ProjectFrenzy.Core.EventHandlers*"/>
+        <SkipNamespace name="ProjectFrenzy.Core.ToastNotifications*"/>
+        
+        <SkipType name="ProjectFrenzy.Core.Services.IPreloadService" skipMethods="true"/>
+        <SkipType name="ProjectFrenzy.Core.Services.ISecurityManager" skipMethods="true"/>
+        <SkipType name="ProjectFrenzy.Core.ToastNotifications.IToastNotificationManager" skipMethods="true"/>
+        <SkipType name="ProjectFrenzy.Core.ToastNotifications.ToastType" skipMethods="true" skipProperties="true" skipFields="true"/>
+        <SkipType name="ProjectFrenzy.Core.ApplicationConfig" skipMethods="true" skipProperties="true" skipFields="true"/>
+        <SkipType name="ProjectFrenzy.Core.SecurityConfig" skipMethods="true" skipProperties="true" skipFields="true"/>
+        <SkipType name="ProjectFrenzy.Core.Clients.AuthenticationResult" skipMethods="true" skipProperties="true" skipFields="true"/>
+        <SkipType name="ProjectFrenzy.Core.Clients.ProjectIndustriesApiConfig" skipMethods="true" skipProperties="true"
+                  skipFields="true"/>
+    </Module>
+</Obfuscator>

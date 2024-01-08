@@ -1,0 +1,50 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters">
+  <Styles.Resources>
+    <converters:Int32ToCornerRadiusConverter x:Key="Int32ToCornerRadiusConverter" />
+  </Styles.Resources>
+  <Design.PreviewWith>
+    <Button Classes="CircleButton">
+      <Image Source="/Assets/Icons/plus.png" Height="18" />
+    </Button>
+  </Design.PreviewWith>
+  <Style Selector="Button.CircleButton">
+    <Setter Property="Background" Value="#DB1A43"/>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Foreground" Value="Black"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Width" Value="34" />
+    <Setter Property="Height" Value="34" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="FontSize" Value="18" />
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="{TemplateBinding Height, Converter={StaticResource Int32ToCornerRadiusConverter}}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            TextBlock.FontSize="{TemplateBinding FontSize}"
+                            TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.CircleButton:pointerover">
+    <Setter Property="Background" Value="#FB2A53"/>
+  </Style>
+  <!--<Style Selector="Button.StandardButton:pressed  /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeControlHighBrush}"/>
+  </Style>-->
+  <Style Selector="Button.CircleButton:disabled">
+    <Setter Property="Opacity" Value=".2"/>
+  </Style>
+</Styles>

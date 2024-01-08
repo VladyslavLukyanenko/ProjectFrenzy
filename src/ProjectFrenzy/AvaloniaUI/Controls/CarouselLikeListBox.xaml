@@ -1,0 +1,162 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <Design.PreviewWith>
+    <ctrl:CarouselLikeListBox Width="460" Background="Black">
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Red" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Blue" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Green" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Yellow" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+    </ctrl:CarouselLikeListBox>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <SolidColorBrush x:Key="RepeatButtonPathFill" Color="#1B1B1B" />
+    <SolidColorBrush x:Key="RepeatButtonPathFillHover" Color="#393939" />
+  </Styles.Resources>
+  <Style Selector="ctrl|CarouselLikeListBox">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="4" />
+    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <ScrollViewer Name="PART_ScrollViewer"
+                        Background="{TemplateBinding Background}"
+                        HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                        VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+            <ItemsPresenter Name="PART_ItemsPresenter"
+                            Items="{TemplateBinding Items}"
+                            ItemsPanel="{TemplateBinding ItemsPanel}"
+                            ItemTemplate="{TemplateBinding ItemTemplate}"
+                            Margin="{TemplateBinding Padding}"
+                            VirtualizationMode="{TemplateBinding VirtualizationMode}" />
+          </ScrollViewer>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ListBox:disabled /template/ Border#border">
+    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ScrollBar:horizontal">
+    <Setter Property="Height" Value="32" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Background="Transparent"
+                UseLayoutRounding="False">
+          <Grid ColumnDefinitions="Auto,*,Auto">
+            <RepeatButton Name="PART_LineUpButton"
+                          VerticalAlignment="Center"
+                          Classes="repeat"
+                          Grid.Row="0"
+                          Grid.Column="0"
+                          Background="Transparent"
+                          Focusable="False"
+                          MinWidth="{DynamicResource ScrollBarThickness}">
+              <Path Data="M 12 0 L 12 32 L 0 16 Z" />
+            </RepeatButton>
+            <!--<Track Grid.Row="1"
+                   Grid.Column="1"
+                   Minimum="{TemplateBinding Minimum}"
+                   Maximum="{TemplateBinding Maximum}"
+                   Value="{TemplateBinding Value, Mode=TwoWay}"
+                   ViewportSize="{TemplateBinding ViewportSize}"
+                   Orientation="{TemplateBinding Orientation}">
+              <Track.DecreaseButton>
+                <RepeatButton Name="PART_PageUpButton"
+                              Classes="repeattrack"
+                              IsVisible="False"
+                              Focusable="False"/>
+              </Track.DecreaseButton>
+              <Track.IncreaseButton>
+                <RepeatButton Name="PART_PageDownButton"
+                              Classes="repeattrack"
+                              IsVisible="False"
+                              Focusable="False"/>
+              </Track.IncreaseButton>
+            </Track>-->
+            <RepeatButton Name="PART_LineDownButton"
+                          VerticalAlignment="Center"
+                          Classes="repeat"
+                          Grid.Row="2"
+                          Grid.Column="2"
+                          Focusable="False"
+                          Background="Transparent"
+                          MinWidth="{DynamicResource ScrollBarThickness}">
+              <Path Data="M 0 0 L 12 16 L 0 32 Z" />
+            </RepeatButton>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="30,0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid ColumnDefinitions="*,Auto">
+          <ScrollBar Name="horizontalScrollBar"
+                     Orientation="Horizontal"
+                     LargeChange="{Binding LargeChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                     SmallChange="{Binding SmallChange.Width, RelativeSource={RelativeSource TemplatedParent}}"
+                     Maximum="{TemplateBinding HorizontalScrollBarMaximum}"
+                     Value="{TemplateBinding HorizontalScrollBarValue, Mode=TwoWay}"
+                     ViewportSize="{TemplateBinding HorizontalScrollBarViewportSize}"
+                     Visibility="{TemplateBinding HorizontalScrollBarVisibility}"
+                     Grid.Row="1"
+                     Focusable="False" />
+          <ScrollContentPresenter Name="PART_ContentPresenter"
+                                  Background="{TemplateBinding Background}"
+                                  CanHorizontallyScroll="{TemplateBinding CanHorizontallyScroll}"
+                                  CanVerticallyScroll="{TemplateBinding CanVerticallyScroll}"
+                                  Content="{TemplateBinding Content}"
+                                  Extent="{TemplateBinding Extent, Mode=TwoWay}"
+                                  Margin="{TemplateBinding Padding}"
+                                  Offset="{TemplateBinding Offset, Mode=TwoWay}"
+                                  Viewport="{TemplateBinding Viewport, Mode=TwoWay}">
+            <ScrollContentPresenter.GestureRecognizers>
+              <ScrollGestureRecognizer
+                CanHorizontallyScroll="{TemplateBinding CanHorizontallyScroll}"
+                CanVerticallyScroll="{TemplateBinding CanVerticallyScroll}" />
+            </ScrollContentPresenter.GestureRecognizers>
+          </ScrollContentPresenter>
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="ctrl|CarouselLikeListBox ScrollBar /template/ RepeatButton > Path">
+    <Setter Property="Fill" Value="{DynamicResource RepeatButtonPathFill}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ScrollBar /template/ RepeatButton:pointerover > Path">
+    <Setter Property="Fill" Value="{DynamicResource RepeatButtonPathFillHover}" />
+  </Style>
+</Styles>

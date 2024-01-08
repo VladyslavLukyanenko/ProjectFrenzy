@@ -1,0 +1,102 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Design.PreviewWith>
+    <Grid Height="300" Width="300" Background="Black">
+      <Border Classes="RoundedSwitchesGroup" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+          <RadioButton Padding="7,0">DD</RadioButton>
+          <Rectangle />
+          <RadioButton IsChecked="True">MM</RadioButton>
+          <Rectangle />
+          <RadioButton Padding="7,0">YR</RadioButton>
+        </StackPanel>
+      </Border>
+
+
+      <Border
+        Classes="RoundedSwitchesGroup"
+        BorderBrush="White"
+        Margin="0, 15, 17, 0"
+        Height="23">
+        <Border.Background>
+          <SolidColorBrush Color="White" Opacity=".1" />
+        </Border.Background>
+        <Border.Styles>
+          <Style Selector="Border.RoundedSwitchesGroup RadioButton">
+            <Setter Property="Foreground" Value="#4E4E4E"/>
+          </Style>
+          <Style Selector="Border.RoundedSwitchesGroup RadioButton:pointerover">
+            <Setter Property="Foreground" Value="#88FFFFFF"/>
+          </Style>
+          <Style Selector="Border.RoundedSwitchesGroup RadioButton:checked">
+            <Setter Property="Foreground" Value="White"/>
+          </Style>
+        </Border.Styles>
+
+        <StackPanel Orientation="Horizontal">
+          <RadioButton FontSize="14" Padding="9,0">DD</RadioButton>
+          <Rectangle />
+          <RadioButton FontSize="14">MM</RadioButton>
+          <Rectangle />
+          <RadioButton IsChecked="True" FontSize="14" Padding="9,0">YR</RadioButton>
+        </StackPanel>
+      </Border>
+    </Grid>
+  </Design.PreviewWith>
+
+  <Style Selector="Border.RoundedSwitchesGroup">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#e61543" Opacity=".1" />
+      </Setter.Value>
+    </Setter>
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="#E61543" />
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="Height" Value="18"/>
+    <Setter Property="HorizontalAlignment" Value="Right" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+
+  <Style Selector="Border.RoundedSwitchesGroup RadioButton">
+    <Setter Property="Foreground" Value="{Binding $parent[1].BorderBrush}" />
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderBrush" Value="Transparent"/>
+    <Setter Property="FontSize" Value="11" />
+    <Setter Property="Padding" Value="3 ,0" />
+    <Setter Property="Height" Value="{Binding $parent.Height}" />
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          VerticalAlignment="Center"
+                          Background="{TemplateBinding Background}"
+                          Padding="{TemplateBinding Padding}"
+                          TextBlock.FontFamily="resm:ProjectFrenzy.Assets.Fonts.Poppins?assembly=ProjectFrenzy#Poppins"
+                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                          TextBlock.FontSize="{TemplateBinding FontSize}"
+                          TextBlock.FontWeight="Normal"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="Border.RoundedSwitchesGroup Rectangle">
+    <Setter Property="Fill" Value="{Binding $parent[1].BorderBrush}" />
+    <Setter Property="Height" Value="{Binding $parent.Height}" />
+    <Setter Property="Width" Value="1" />
+  </Style>
+
+  <Style Selector="Border.RoundedSwitchesGroup RadioButton:pointerover">
+    <Setter Property="Foreground" Value="#88FFFFFF"/>
+  </Style>
+  <Style Selector="Border.RoundedSwitchesGroup RadioButton:checked">
+    <Setter Property="Foreground" Value="White"/>
+  </Style>
+  <!--<Style Selector="RadioButton:indeterminate /template/ Ellipse#indeterminateMark">
+    <Setter Property="IsVisible" Value="True"/>
+  </Style>
+  <Style Selector="RadioButton:disabled /template/ Ellipse#border">
+    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}"/>
+  </Style>-->
+</Styles>

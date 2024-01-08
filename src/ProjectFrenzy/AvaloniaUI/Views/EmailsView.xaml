@@ -1,0 +1,101 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.EmailsView">
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid ColumnDefinitions="*,*" Classes="HeadingContainer">
+      <TextBlock Text="Emails" Classes="Heading" />
+
+      <StackPanel Grid.Column="1" Spacing="11" Orientation="Horizontal" VerticalAlignment="Center"
+                  HorizontalAlignment="Right">
+        <Button Classes="CircleButton" Margin="7,0,0,0" Command="{Binding CreateEmailsCommand}">
+          <Image Source="/Assets/Icons/plus.png" Height="18" />
+        </Button>
+      </StackPanel>
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="1*,1*">
+      <TextBox
+        Classes="ProxiesTextArea"
+        TextWrapping="Wrap"
+        AcceptsReturn="True"
+        Watermark="Insert emails... me@domain.com or @catchallemail.com"
+        Padding="31,21"
+        Margin="0,0,15,0"
+        Text="{Binding RawEmails}" />
+
+      <DataGrid Grid.Column="1" Items="{Binding Emails}" Margin="15,0,0,0">
+        <DataGrid.Resources>
+          <converters:BooleanToIconConverter x:Key="BooleanToIconConverter" />
+          <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+        </DataGrid.Resources>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Email" MinWidth="200" Width="*" Binding="{Binding Value}" />
+          <DataGridTemplateColumn Header="Status" MinWidth="200" Width="*">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Image
+                    IsVisible="{Binding IsCatchAll}"
+                    VerticalAlignment="Center"
+                    Source="/Assets/Icons/catchallemail-icon.png"
+                    Height="6"
+                    Width="6"
+                    HorizontalAlignment="Left" />
+
+                  <Image
+                    IsVisible="{Binding !IsCatchAll}"
+                    VerticalAlignment="Center"
+                    Source="{Binding !IsAllocated, Converter={StaticResource BooleanToIconConverter}}"
+                    Height="6"
+                    Width="6"
+                    HorizontalAlignment="Left" />
+                </Grid>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+          <DataGridTemplateColumn Width="100">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                  <ctrl:IconButton
+                    Command="{Binding $parent[UserControl].DataContext.RemoveEmailCommand}"
+                    CommandParameter="{Binding}"
+                    Height="20"
+                    Width="20"
+                    ActiveIconSrc="/Assets/Icons/trash.png"
+                    NormalIconSrc="/Assets/Icons/trash.png" />
+                </StackPanel>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <Border
+        CornerRadius="5"
+        Width="74"
+        Height="20"
+        Background="#232323"
+        Grid.Column="1"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Right"
+        Margin="0,12,25,0">
+        <TextBlock
+          Text="{Binding Count}"
+          Foreground="#36FFB7"
+          FontFamily="resm:ProjectFrenzy.Assets.Fonts.RobotoMono?assembly=ProjectFrenzy#Roboto Mono"
+          FontSize="12"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center" />
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -1,0 +1,63 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Design.PreviewWith>
+    <Border Padding="240">
+      <ComboBox SelectedIndex="0" VerticalAlignment="Top">
+        <ComboBoxItem>Inline Items</ComboBoxItem>
+        <ComboBoxItem>Inline Item 2</ComboBoxItem>
+        <ComboBoxItem>Inline Item 3</ComboBoxItem>
+        <ComboBoxItem>Inline Item 4</ComboBoxItem>
+      </ComboBox>
+    </Border>
+  </Design.PreviewWith>
+  <Styles.Resources>
+    <SolidColorBrush x:Key="ComboBoxItemBackground" Color="#3B3B3B" />
+    <SolidColorBrush x:Key="ComboBoxItemBorderBrush" Color="#4B4B4B" />
+    <SolidColorBrush x:Key="ComboBoxItemSelectionBorderBrush" Color="#5B5B5B" />
+    <SolidColorBrush x:Key="ComboBoxItemFocusBorderBrush" Color="#7B7B7B" />
+    <SolidColorBrush x:Key="ComboBoxItemForeground" Color="#848088" />
+  </Styles.Resources>
+  <Style Selector="ComboBoxItem">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemBackground}"/>
+    <Setter Property="Padding" Value="12,8"/>
+    <Setter Property="Foreground" Value="{StaticResource ComboBoxItemForeground}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ComboBoxItemBorderBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Name="PART_ContentPresenter"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                          Content="{TemplateBinding Content}"
+                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                          Padding="{TemplateBinding Padding}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+    
+  <Style Selector="ComboBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemSelectionBorderBrush}"/>
+  </Style>
+    
+  <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemFocusBorderBrush}"/>
+  </Style>
+  <Style Selector="ComboBoxItem:selected">
+    <Setter Property="Foreground" Value="Black"/>
+  </Style>
+    
+  <Style Selector="ComboBoxItem:selected:focus /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemFocusBorderBrush}"/>
+  </Style>
+    
+  <Style Selector="ComboBoxItem:selected:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemFocusBorderBrush}"/>
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ComboBoxItemFocusBorderBrush}"/>
+  </Style>
+</Styles>

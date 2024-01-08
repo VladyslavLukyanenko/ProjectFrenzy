@@ -1,0 +1,72 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.ProfilesGridView">
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid ColumnDefinitions="*,*" Classes="HeadingContainer">
+      <TextBlock Text="Profiles" Classes="Heading" />
+
+      <StackPanel Grid.Column="1" Spacing="11" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+        <Button Classes="CircleButton" Margin="7,0,0,0" Command="{Binding $parent[UserControl].ViewModel.CreateProfileCommand}">
+          <Image Source="/Assets/Icons/plus.png" Height="18" />
+        </Button>
+      </StackPanel>
+    </Grid>
+
+    <DataGrid Grid.Row="1" Items="{Binding Profiles}">
+      <DataGrid.Resources>
+        <converters:BooleanToIconConverter x:Key="BooleanToIconConverter" />
+        <converters:BitmapValueConverter x:Key="BitmapValueConverter"></converters:BitmapValueConverter>
+      </DataGrid.Resources>
+      <DataGrid.Columns>
+        <DataGridTemplateColumn MinWidth="250" Width="*" Header="Profile Name">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock Text="{Binding ProfileName}" Classes="EmphasedText" VerticalAlignment="Center"/>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+        <DataGridTextColumn Width="180" Header="Name" Binding="{Binding ShippingAddress.FullName}" />
+        <DataGridTextColumn Width="180" Header="Zip Code" Binding="{Binding ShippingAddress.ZipCode}" />
+        <DataGridTemplateColumn Width="150" Header="Country">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <TextBlock
+                VerticalAlignment="Center"
+                Text="{Binding ShippingAddress.CountryId, Converter={x:Static converters:CountryIdToNameConverter.Instance }}"/>
+            </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        <DataGridTemplateColumn Width="100" Header="">
+          <DataGridTemplateColumn.CellTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" VerticalAlignment="Center">
+                <ctrl:IconButton
+                  ActiveIconSrc="/Assets/Icons/edit.png"
+                  NormalIconSrc="/Assets/Icons/edit.png"
+                  Command="{Binding $parent[UserControl].ViewModel.EditProfileCommand}"
+                  CommandParameter="{Binding .}"
+                />
+                <ctrl:IconButton
+                  Height="20"
+                  Width="20"
+                  Command="{Binding $parent[UserControl].ViewModel.RemoveProfileCommand}"
+                  CommandParameter="{Binding .}"
+                  ActiveIconSrc="/Assets/Icons/trash.png"
+                  NormalIconSrc="/Assets/Icons/trash.png"
+              />
+              </StackPanel>
+            </DataTemplate>
+          </DataGridTemplateColumn.CellTemplate>
+        </DataGridTemplateColumn>
+
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </Grid>
+</UserControl>

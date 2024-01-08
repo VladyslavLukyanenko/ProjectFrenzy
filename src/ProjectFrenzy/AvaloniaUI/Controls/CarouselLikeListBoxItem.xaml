@@ -1,0 +1,99 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <Design.PreviewWith>
+    <ctrl:CarouselLikeListBox Width="460" Background="Black">
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Red" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Blue" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Green" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+      <ListBoxItem>
+        <StackPanel>
+          <Border Width="100" Height="150" Background="Yellow" />
+          <TextBlock Text="Text" />
+        </StackPanel>
+      </ListBoxItem>
+    </ctrl:CarouselLikeListBox>
+  </Design.PreviewWith>
+
+  <Styles.Resources>
+    <SolidColorBrush x:Key="ListBoxItemSelected" Color="#191919" />
+    <SolidColorBrush x:Key="ListBoxItemHover" Color="#393939" />
+  </Styles.Resources>
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="Padding" Value="10" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border CornerRadius="10">
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:pointerover /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource ListBoxItemHover}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource ListBoxItemSelected}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource ListBoxItemSelected}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:pointerover /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource ListBoxItemSelected}" />
+  </Style>
+
+  <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus:pointerover /template/ Border">
+    <Setter Property="Background" Value="{DynamicResource ListBoxItemSelected}" />
+  </Style>
+</Styles>

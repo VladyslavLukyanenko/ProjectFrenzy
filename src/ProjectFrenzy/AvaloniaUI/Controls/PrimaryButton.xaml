@@ -1,0 +1,50 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Design.PreviewWith>
+    <Button Classes="PrimaryButton">Test</Button>
+  </Design.PreviewWith>
+  <Style Selector="Button.PrimaryButton">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#e61543" Opacity=".2"/>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Foreground" Value="#FA1749"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Padding" Value="17, 8, 17, 7"/>
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+          <ContentPresenter Name="PART_ContentPresenter"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="12"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                            Content="{TemplateBinding Content}"
+                            Padding="{TemplateBinding Padding}"
+                            TextBlock.Foreground="{TemplateBinding Foreground}"
+                            TextBlock.FontSize="{TemplateBinding FontSize}"
+                            TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.PrimaryButton:pointerover /template/ ContentPresenter">
+    <Setter Property="Background">
+      <Setter.Value>
+        <SolidColorBrush Color="#e61543" Opacity=".1"/>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style Selector="Button.PrimaryButton:pressed  /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource ThemeControlHighBrush}"/>
+    <Setter Property="TextBlock.Foreground" Value="Black"/>
+  </Style>
+  <Style Selector="Button.PrimaryButton:disabled">
+    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}"/>
+  </Style>
+</Styles>

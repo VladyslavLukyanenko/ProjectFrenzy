@@ -1,0 +1,48 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+        xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <Styles.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter"></converters:BitmapValueConverter>
+  </Styles.Resources>
+  <Design.PreviewWith>
+    <ctrl:IconButton
+        ActiveIconSrc="/Assets/Icons/dashboard_active.png"
+        NormalIconSrc="/Assets/Icons/dashboard_normal.png"
+    ></ctrl:IconButton>
+  </Design.PreviewWith>
+  <Style Selector="ctrl|IconButton">
+    <Setter Property="BorderThickness" Value="0"/>
+    <Setter Property="Height" Value="16" />
+    <Setter Property="Width" Value="16" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Grid>
+          <Image Classes="IconNorm"
+                 Source="{TemplateBinding NormalIconSrc, Converter={StaticResource BitmapValueConverter}}"
+                 Height="{TemplateBinding Height}"
+                 Width="{TemplateBinding Width}"/>
+          <Image Classes="IconActive"
+                 Height="{TemplateBinding Height}"
+                 Width="{TemplateBinding Width}"
+                 Source="{TemplateBinding ActiveIconSrc, Converter={StaticResource BitmapValueConverter}}" />
+        </Grid>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+    
+  <Style Selector="ctrl|IconButton Image.IconActive">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  
+  <Style Selector="ctrl|IconButton:pointerover Image.IconNorm">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+  
+  <Style Selector="ctrl|IconButton:pointerover Image.IconActive">
+    <Setter Property="IsVisible" Value="True" />
+  </Style>
+</Styles>

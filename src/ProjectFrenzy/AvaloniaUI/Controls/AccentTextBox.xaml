@@ -1,0 +1,93 @@
+<Styles xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <SolidColorBrush x:Key="TextBoxBackground" Color="#191919" />
+    <SolidColorBrush x:Key="TextBoxBorderBrush" Color="#191919" />
+    <SolidColorBrush x:Key="TextBoxSelectionBorderBrush" Color="#393939" />
+    <SolidColorBrush x:Key="TextBoxFocusBorderBrush" Color="#494949" />
+    <SolidColorBrush x:Key="TextBoxForeground" Color="#777777" />
+  </Styles.Resources>
+  <Design.PreviewWith>
+    <TextBox Width="103" Watermark="Profile Name" Classes="AccentTextBox"/>
+  </Design.PreviewWith>
+  <Style Selector="TextBox.AccentTextBox">
+    <Setter Property="Background" Value="{StaticResource TextBoxBackground}"/>
+    <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorderBrush}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="SelectionBrush" Value="{StaticResource TextBoxSelectionBorderBrush}"/>
+    <Setter Property="SelectionForegroundBrush" Value="{DynamicResource HighlightForegroundBrush}"/>
+    <Setter Property="Padding" Value="14,7"/>
+    <Setter Property="FontSize" Value="13" />
+    <Setter Property="Foreground" Value="{StaticResource TextBoxForeground}" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="border"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}">
+          <DockPanel Margin="{TemplateBinding Padding}"
+                     HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                     VerticalAlignment="{TemplateBinding VerticalAlignment}">
+
+            <TextBlock Name="floatingWatermark"
+                       Foreground="{StaticResource TextBoxForeground}"
+                       FontSize="{DynamicResource FontSizeSmall}"
+                       Text="{TemplateBinding Watermark}"
+                       DockPanel.Dock="Top">
+              <TextBlock.IsVisible>
+                <MultiBinding Converter="{x:Static BoolConverters.And}">
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                           Path="UseFloatingWatermark"/>
+                  <Binding RelativeSource="{RelativeSource TemplatedParent}"
+                           Path="Text"
+                           Converter="{x:Static StringConverters.IsNotNullOrEmpty}"/>
+                </MultiBinding>
+              </TextBlock.IsVisible>
+            </TextBlock>
+
+            <DataValidationErrors>
+              <ScrollViewer HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+                            VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}">
+
+                <Panel>
+                  <TextBlock Name="watermark"
+                             Opacity="0.5"
+                             Text="{TemplateBinding Watermark}"
+                             IsVisible="{TemplateBinding Text, Converter={x:Static StringConverters.IsNullOrEmpty}}"/>
+                  <TextPresenter Name="PART_TextPresenter"
+                                 Text="{TemplateBinding Text, Mode=TwoWay}"
+                                 CaretIndex="{TemplateBinding CaretIndex}"
+                                 SelectionStart="{TemplateBinding SelectionStart}"
+                                 SelectionEnd="{TemplateBinding SelectionEnd}"
+                                 TextAlignment="{TemplateBinding TextAlignment}"
+                                 TextWrapping="{TemplateBinding TextWrapping}"
+                                 PasswordChar="{TemplateBinding PasswordChar}"
+                                 SelectionBrush="{TemplateBinding SelectionBrush}"
+                                 SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                 CaretBrush="{TemplateBinding CaretBrush}"/>
+                </Panel>
+              </ScrollViewer>
+            </DataValidationErrors>
+          </DockPanel>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="TextBox /template/ Border">
+    <Setter Property="CornerRadius" Value="5" />
+  </Style>
+  <Style Selector="TextBox:pointerover /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{StaticResource TextBoxSelectionBorderBrush}"/>
+  </Style>
+  <Style Selector="TextBox:focus /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{StaticResource TextBoxFocusBorderBrush}"/>
+  </Style>
+  <Style Selector="TextBox:error /template/ Border#border">
+    <Setter Property="BorderBrush" Value="{DynamicResource ErrorBrush}"/>
+  </Style>
+  <Style Selector="TextBox /template/ DockPanel">
+    <Setter Property="Cursor" Value="IBeam" />
+  </Style>
+    <Style Selector="TextBox:disabled /template/ Border#border">
+        <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}" />
+    </Style>
+</Styles>

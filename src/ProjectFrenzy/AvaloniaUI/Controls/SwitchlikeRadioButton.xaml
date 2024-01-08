@@ -1,0 +1,63 @@
+<Styles xmlns="https://github.com/avaloniaui">
+  <Design.PreviewWith>
+    <Border Classes="Switches">
+      <StackPanel Orientation="Horizontal">
+        <RadioButton IsChecked="True">Shippng</RadioButton>
+        <RadioButton>Billing</RadioButton>
+      </StackPanel>
+    </Border>
+  </Design.PreviewWith>
+
+  <Style Selector="Border.Switches">
+    <Setter Property="Background" Value="#1A1A1A" />
+    <Setter Property="CornerRadius" Value="12"/>
+    <Setter Property="Padding" Value="4,4,4,3"/>
+  </Style>
+
+  <Style Selector="RadioButton">
+    <Setter Property="Foreground" Value="#242424" />
+    <Setter Property="Background" Value="Transparent"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource ThemeBorderMidBrush}"/>
+    <Setter Property="BorderThickness" Value="{DynamicResource ThemeBorderThickness}"/>
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Padding="24, 8" CornerRadius="12">
+          <Grid ColumnDefinitions="Auto,*" Background="{TemplateBinding Background}">
+            <ContentPresenter Name="PART_ContentPresenter"
+                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                              Content="{TemplateBinding Content}"
+                              Margin="4,0,0,0"
+                              VerticalAlignment="Center"
+                              TextBlock.Foreground="{TemplateBinding Foreground}"
+                              TextBlock.FontSize="13"
+                              TextBlock.FontWeight="SemiBold"
+                              Grid.Column="1"/>
+          </Grid>
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="RadioButton:pointerover">
+    <Setter Property="Foreground" Value="#88E61543"/>
+  </Style>
+  <Style Selector="RadioButton:checked /template/ Border">
+    <Setter Property="Background">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+          <GradientStop Offset="0" Color="#212121" />
+          <GradientStop Offset="1" Color="#1F1F1F" />
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style Selector="RadioButton:checked">
+    <Setter Property="Foreground" Value="#E61543"/>
+  </Style>
+  <!--<Style Selector="RadioButton:indeterminate /template/ Ellipse#indeterminateMark">
+    <Setter Property="IsVisible" Value="True"/>
+  </Style>
+  <Style Selector="RadioButton:disabled /template/ Ellipse#border">
+    <Setter Property="Opacity" Value="{DynamicResource ThemeDisabledOpacity}"/>
+  </Style>-->
+</Styles>

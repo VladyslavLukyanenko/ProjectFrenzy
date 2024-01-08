@@ -1,0 +1,82 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="942"
+             d:DesignHeight="934"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.ProfileEditorView">
+  <Grid Name="Container">
+    <Grid.Background>
+      <SolidColorBrush Color="Black" Opacity=".34" />
+    </Grid.Background>
+    <Button Command="{Binding CloseCommand}" Opacity="0" />
+
+    <Border
+      Classes="EditorGroupBox"
+      Width="642"
+      VerticalAlignment="Center"
+      HorizontalAlignment="Center">
+      <Grid RowDefinitions="Auto, Auto, 40">
+        <Grid ColumnDefinitions="Auto, *" Margin="0 0 0 50">
+          <Border Classes="Switches">
+            <StackPanel Orientation="Horizontal">
+              <RadioButton
+                x:Name="ShippingRbtn"
+                IsChecked="{Binding IsShippingSelected}"
+                Command="{Binding SelectShippingCommand}">
+                Shipping
+              </RadioButton>
+
+              <RadioButton
+                x:Name="BillingRbtn"
+                IsChecked="{Binding IsBillingSelected}"
+                Command="{Binding SelectBillingCommand}"
+                IsEnabled="{Binding !Profile.IsShippingSameAsBilling}">
+                Billing
+              </RadioButton>
+            </StackPanel>
+          </Border>
+
+          <StackPanel
+            Grid.Column="1"
+            Orientation="Horizontal"
+            Spacing="7"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+          >
+            <TextBox Text="{Binding Profile.ProfileName}" Width="206" Watermark="Profile Name" Classes="AccentTextBox" />
+            <Button Command="{Binding SaveCommand}" Classes="PrimaryButton">Save Profile</Button>
+          </StackPanel>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Height="510">
+          <Grid>
+            <DockPanel LastChildFill="True" IsVisible="{Binding #ShippingRbtn.IsChecked}">
+              <TextBlock
+                Classes="SecondHeading"
+                Text="Shipping Address"
+                Margin="0,0,0,18"
+                DockPanel.Dock="Top" />
+              <ContentControl
+                Content="{Binding ShippingAddress}"
+                DockPanel.Dock="Bottom" />
+            </DockPanel>
+            
+            <DockPanel LastChildFill="True" IsVisible="{Binding #BillingRbtn.IsChecked}">
+              <TextBlock
+                Classes="SecondHeading"
+                Text="Billing Address"
+                Margin="0,0,0,18"
+                DockPanel.Dock="Top" />
+              <ContentControl
+                Content="{Binding BillingAddress}"
+                DockPanel.Dock="Bottom" />
+            </DockPanel>
+          </Grid>
+        </ScrollViewer>
+        <CheckBox VerticalAlignment="Bottom" Grid.Row="2" IsChecked="{Binding Profile.IsShippingSameAsBilling}" Content="Same as shipping" />
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

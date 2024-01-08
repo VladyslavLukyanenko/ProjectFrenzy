@@ -1,0 +1,102 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:rxui="http://reactiveui.net"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.SettingsView">
+
+  <Grid RowDefinitions="Auto,*" ColumnDefinitions="Auto,Auto,*">
+    <Grid ColumnDefinitions="*,Auto" Grid.ColumnSpan="2" Classes="HeadingContainer">
+      <TextBlock Text="Settings" Classes="Heading" />
+
+      <rxui:ViewModelViewHost
+        VerticalAlignment="Center"
+        Grid.Column="1"
+        ViewModel="{Binding UpdateInfo}" />
+    </Grid>
+
+    <StackPanel Grid.Row="1" HorizontalAlignment="Left" Margin="0,30,0,0">
+      <Border Classes="RoundedContainer" Padding="28">
+        <StackPanel Spacing="5">
+          <TextBlock Text="Success Webhook" Classes="RegularLabel" />
+
+          <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Stretch" Margin="0,0,0,17">
+            <TextBox Width="550" Watermark="Success Webhook" VerticalAlignment="Center"
+                     Text="{Binding DiscordSettings.SuccessWebHook}" />
+            <Button Classes="CircleButton" Command="{Binding UpdateDiscordSettingsCommand}">
+              <Image Source="/Assets/Icons/plus.png" Height="18" />
+            </Button>
+          </StackPanel>
+
+          <TextBlock Text="Failed Webhook" Classes="RegularLabel" />
+
+          <StackPanel Orientation="Horizontal" Spacing="12" HorizontalAlignment="Stretch">
+            <TextBox Width="550" Watermark="Failed Webhook" VerticalAlignment="Center"
+                     Text="{Binding DiscordSettings.FailureWebHook}" />
+            <Button Classes="CircleButton" Command="{Binding UpdateDiscordSettingsCommand}">
+              <Image Source="/Assets/Icons/plus.png" Height="18" />
+            </Button>
+          </StackPanel>
+
+          <Button Classes="StandardButton" Command="{Binding SendTestWebhookCommand}" Content="Send test webhook"
+                  Margin="0, 25, 0, 0" />
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <Border Grid.Row="1" Grid.Column="1" Margin="47,30,0,0" VerticalAlignment="Top" Classes="RoundedContainer"
+            Padding="0,28,0,0" Width="330">
+      <Grid Height="260" RowDefinitions="Auto, *">
+
+        <StackPanel Margin="28,0">
+          <TextBlock Text="Add Emulator IP" Classes="RegularLabel" />
+          <StackPanel Orientation="Horizontal" Spacing="18" Margin="0,5,0,0">
+            <TextBox Watermark="Emulator IP" Width="230" Text="{Binding EmulatorIp}" />
+            <Button Classes="CircleButton" Command="{Binding AddEmulatorCommand}">
+              <Image Source="/Assets/Icons/plus.png" Height="18" />
+            </Button>
+          </StackPanel>
+        </StackPanel>
+
+        <ListBox Grid.Row="1" Items="{Binding Emulators}" Height="170" Background="Transparent">
+          <ListBox.Resources>
+            <converters:BooleanToIconConverter x:Key="BooleanToIconConverter" />
+            <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+          </ListBox.Resources>
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <Grid ColumnDefinitions="*, Auto" Margin="23,0,0,0">
+                <StackPanel Orientation="Horizontal" Spacing="7">
+                  <TextBlock Text="{Binding Ip}" VerticalAlignment="Center" Foreground="#515050" FontSize="14"
+                             Opacity=".9" FontWeight="SemiBold" />
+                  <Image
+                    VerticalAlignment="Center"
+                    Source="{Binding IsAvailable, Converter={StaticResource BooleanToIconConverter}}"
+                    Height="6"
+                    Width="6"
+                    HorizontalAlignment="Left" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center">
+                  <ctrl:IconButton
+                    Height="20"
+                    Width="20"
+                    Command="{Binding $parent[UserControl].DataContext.RemoveEmulatorCommand}"
+                    CommandParameter="{Binding .}"
+                    ActiveIconSrc="/Assets/Icons/trash.png"
+                    NormalIconSrc="/Assets/Icons/trash.png" />
+                </StackPanel>
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

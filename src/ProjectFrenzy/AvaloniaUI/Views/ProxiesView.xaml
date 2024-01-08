@@ -1,0 +1,79 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.ProxiesView">
+
+  <Grid RowDefinitions="Auto,*">
+    <Grid ColumnDefinitions="*,*" Classes="HeadingContainer">
+      <TextBlock Text="Proxies" Classes="Heading" />
+
+      <StackPanel Grid.Column="1" Spacing="11" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+        <Button Classes="CircleButton" Margin="7,0,0,0" Command="{Binding CreateProxiesCommand}">
+          <Image Source="/Assets/Icons/plus.png" Height="18" />
+        </Button>
+      </StackPanel>
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="1*,1*">
+      <TextBox
+        Classes="ProxiesTextArea"
+        TextWrapping="Wrap"
+        AcceptsReturn="True"
+        Watermark="Insert proxies... proxy-domain.com:8080:user-name:your-password"
+        Padding="31,21"
+        Margin="0,0,15,0"
+        Text="{Binding RawProxies}"
+      />
+
+      <DataGrid Grid.Column="1" Items="{Binding Proxies}" Margin="15,0,0,0">
+        <DataGrid.Resources>
+          <converters:BooleanToIconConverter x:Key="BooleanToIconConverter" />
+          <converters:BitmapValueConverter x:Key="BitmapValueConverter"></converters:BitmapValueConverter>
+        </DataGrid.Resources>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Proxy" MinWidth="200" Width="*" Binding="{Binding Url}" />
+          <DataGridTemplateColumn Width="100">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate>
+                <StackPanel Orientation="Horizontal" Spacing="10" HorizontalAlignment="Right" VerticalAlignment="Center">
+                  <ctrl:IconButton
+                    Command="{Binding $parent[UserControl].DataContext.RemoveProxyCommand}"
+                    CommandParameter="{Binding}"
+                    Height="20"
+                    Width="20"
+                    ActiveIconSrc="/Assets/Icons/trash.png"
+                    NormalIconSrc="/Assets/Icons/trash.png"
+                  />
+                </StackPanel>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+        </DataGrid.Columns>
+      </DataGrid>
+
+      <Border
+        CornerRadius="5"
+        Width="74"
+        Height="20"
+        Background="#232323"
+        Grid.Column="1"
+        VerticalAlignment="Top"
+        HorizontalAlignment="Right"
+        Margin="0,12,25,0"
+      >
+        <TextBlock
+          Text="{Binding Count}"
+          Foreground="#36FFB7"
+          FontFamily="resm:ProjectFrenzy.Assets.Fonts.RobotoMono?assembly=ProjectFrenzy#Roboto Mono"
+          FontSize="12"
+          HorizontalAlignment="Center"
+          VerticalAlignment="Center" />
+      </Border>
+    </Grid>
+  </Grid>
+</UserControl>

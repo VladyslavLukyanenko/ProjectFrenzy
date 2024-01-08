@@ -1,0 +1,47 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:ProjectFrenzy.Core.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1200" d:DesignHeight="720"
+        x:Class="ProjectFrenzy.AvaloniaUI.Views.MainWindowView"
+        xmlns:reactiveUi="http://reactiveui.net"
+        xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+        Icon="/Assets/logo.png"
+        MinWidth="1250"
+        MinHeight="700"
+        Width="1280"
+        Height="730"
+        CanResize="False"
+        FontFamily="resm:ProjectFrenzy.Assets.Fonts.SFPro?assembly=ProjectFrenzy#SF Pro Display"
+        Background="{StaticResource MainWindowBackground}"
+        Title="{Binding ApplicationFullName}">
+  <Window.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+  </Window.Resources>
+  <Grid>
+    <StackPanel ZIndex="5" x:Name="NotificationsHost" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10" Spacing="10" />
+
+    <Grid Name="ContentContainer">
+      <Border Padding="24">
+
+        <Grid ColumnDefinitions="63,*">
+          <Border Classes="NavigationMenu">
+            <StackPanel Spacing="22" x:Name="NavContainer">
+              <Image Source="/Assets/logo.png" Classes="LogoIcon" />
+            </StackPanel>
+          </Border>
+          <reactiveUi:RoutedViewHost Grid.Column="1" Padding="28, 0, 0, 0" Router="{Binding Router}"
+                                     PageTransition="{x:Null}">
+            <reactiveUi:RoutedViewHost.DefaultContent>
+              <TextBlock Text="Loading..." />
+            </reactiveUi:RoutedViewHost.DefaultContent>
+          </reactiveUi:RoutedViewHost>
+        </Grid>
+      </Border>
+      <ContentControl
+        Content="{Binding ModalComponent}"
+        IsVisible="{Binding IsModalComponentVisible}" />
+    </Grid>
+  </Grid>
+</Window>

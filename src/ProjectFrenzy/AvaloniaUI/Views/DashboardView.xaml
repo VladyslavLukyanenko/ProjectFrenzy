@@ -1,0 +1,365 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ProjectFrenzy.AvaloniaUI.Views.DashboardView"
+             xmlns:vm="clr-namespace:ProjectFrenzy.Core.ViewModels"
+             xmlns:oxy="clr-namespace:OxyPlot.Avalonia;assembly=OxyPlot.Avalonia"
+             xmlns:converters="clr-namespace:ProjectFrenzy.AvaloniaUI.Infra.Converters"
+             xmlns:ctrl="clr-namespace:ProjectFrenzy.AvaloniaUI.Controls">
+  <UserControl.Resources>
+    <converters:BitmapValueConverter x:Key="BitmapValueConverter" />
+
+    <LinearGradientBrush x:Key="PanelBackground" StartPoint="0%,0%" EndPoint="0%,100%">
+      <GradientStop Offset="0" Color="#0CFFFFFF" />
+      <GradientStop Offset="1" Color="#0FAEAEAE" />
+    </LinearGradientBrush>
+  </UserControl.Resources>
+  <Grid RowDefinitions="Auto,Auto,*">
+
+    <!-- User avatar -->
+    <Grid ColumnDefinitions="Auto, *" Width="191" HorizontalAlignment="Right">
+      <Border
+        Grid.ColumnSpan="2"
+        Height="41"
+        Padding="54,0,0,0"
+        Background="{StaticResource PanelBackground}"
+        Margin="10, 0, 0, 0"
+        CornerRadius="16">
+        <StackPanel VerticalAlignment="Center">
+          <TextBlock
+            Text="{Binding CurrentUser.FullUserName}"
+            Foreground="#4E4E4E"
+            FontSize="10"
+            FontFamily="resm:ProjectFrenzy.Assets.Fonts?assembly=ProjectFrenzy#Segoe UI Symbol"
+            FontWeight="Bold"
+            Margin="0,0,0,2" />
+
+          <TextBlock
+            Text="{Binding CurrentUser.StatusText}"
+            Foreground="#E61543"
+            FontSize="10"
+            FontFamily="resm:ProjectFrenzy.Assets.Fonts.RobotoMono?assembly=ProjectFrenzy#Roboto Mono"
+            FontWeight="Normal" />
+        </StackPanel>
+      </Border>
+
+      <Border Height="48" Width="48" CornerRadius="24" Background="#353535">
+        <Border
+          CornerRadius="21"
+          Height="42"
+          Width="42">
+          <Border.Background>
+            <ImageBrush Source="{Binding CurrentUser.Avatar, Converter={StaticResource BitmapValueConverter}}"
+                        Stretch="UniformToFill" />
+          </Border.Background>
+        </Border>
+      </Border>
+    </Grid>
+
+    <!-- Welcome message -->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="40,0,0,27">
+      <TextBlock Text="Welcome, " FontSize="24" FontWeight="SemiBold" Foreground="#393939"
+                 FontFamily="resm:ProjectFrenzy.Assets.Fonts?assembly=ProjectFrenzy#Segoe UI Symbol" />
+      <TextBlock
+        Text="{Binding CurrentUser.Username}"
+        FontSize="24"
+        FontWeight="SemiBold"
+        Foreground="#E61543"
+        FontFamily="resm:ProjectFrenzy.Assets.Fonts?assembly=ProjectFrenzy#Segoe UI Symbol" />
+    </StackPanel>
+
+    <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled">
+      <Grid RowDefinitions="Auto, *, Auto">
+        <!-- Statistics -->
+        <Grid ColumnDefinitions="*, *" Margin="40,0,40,33" Height="180">
+          <Border Background="{StaticResource PanelBackground}" Margin="0,0,11,0" CornerRadius="22">
+            <Grid>
+              <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
+                <Border Background="#0F36ffb7" Height="78" Width="78" CornerRadius="39" VerticalAlignment="Center">
+                  <Image Source="/Assets/Icons/SuccessCheckoutsIcon.png" Height="46" Width="46" />
+                </Border>
+                <StackPanel VerticalAlignment="Top">
+                  <TextBlock
+                    Text="{Binding SuccessfulCheckoutsCount}"
+                    Height="62"
+                    VerticalAlignment="Top"
+                    Foreground="#36FFB7"
+                    FontSize="55"
+                    FontWeight="SemiBold" />
+                  <TextBlock
+                    Text="Successful Checkouts"
+                    FontSize="14"
+                    FontWeight="SemiBold"
+                    Foreground="#545454"
+                    Height="17" />
+                </StackPanel>
+              </StackPanel>
+
+              <Border Classes="RoundedSwitchesGroup" Margin="0, 13, 15, 0" BorderBrush="#36FFB7">
+                <Border.Background>
+                  <SolidColorBrush Color="#36FFB7" Opacity=".1" />
+                </Border.Background>
+
+                <StackPanel Orientation="Horizontal">
+                  <RadioButton
+                    Command="{Binding ChangeSuccessfulCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Daily}"
+                    IsChecked="{Binding SuccessfulCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Daily}}"
+                    Padding="7,0">
+                    DD
+                  </RadioButton>
+                  <Rectangle />
+                  <RadioButton
+                    Command="{Binding ChangeSuccessfulCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Monthly}"
+                    IsChecked="{Binding SuccessfulCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Monthly}}">
+                    MM
+                  </RadioButton>
+                  <Rectangle />
+                  <RadioButton
+                    Padding="7,0"
+                    Command="{Binding ChangeSuccessfulCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Yearly}"
+                    IsChecked="{Binding SuccessfulCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Yearly}}">
+                    YR
+                  </RadioButton>
+                </StackPanel>
+              </Border>
+            </Grid>
+
+          </Border>
+          <Border Grid.Column="1" Background="{StaticResource PanelBackground}" Margin="11,0,0,0" CornerRadius="22">
+            <Grid>
+              <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="15">
+                <Border Background="#0Fe61543" Height="78" Width="78" CornerRadius="39" VerticalAlignment="Center">
+                  <Image Source="/Assets/Icons/FailedCheckoutsIcon.png" Height="46" Width="33" />
+                </Border>
+                <StackPanel VerticalAlignment="Top">
+                  <TextBlock
+                    Text="{Binding FailedCheckoutsCount}"
+                    Height="62"
+                    VerticalAlignment="Top"
+                    Foreground="#E61543"
+                    FontSize="55"
+                    FontWeight="SemiBold" />
+                  <TextBlock Text="Failed Checkouts" FontSize="14" FontWeight="SemiBold" Foreground="#545454"
+                             Height="17" />
+                </StackPanel>
+              </StackPanel>
+
+              <Border Classes="RoundedSwitchesGroup" Margin="0, 13, 15, 0">
+                <StackPanel Orientation="Horizontal">
+                  <RadioButton
+                    Padding="7,0"
+                    Command="{Binding ChangeFailedCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Daily}"
+                    IsChecked="{Binding FailedCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Daily}}">
+                    DD
+                  </RadioButton>
+                  <Rectangle />
+                  <RadioButton
+                    Command="{Binding ChangeFailedCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Monthly}"
+                    IsChecked="{Binding FailedCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Monthly}}">
+                    MM
+                  </RadioButton>
+                  <Rectangle />
+                  <RadioButton
+                    Command="{Binding ChangeFailedCheckoutsDisplayPeriodCommand}"
+                    CommandParameter="{x:Static vm:StatsPeriodRange.Yearly}"
+                    IsChecked="{Binding FailedCheckoutsDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Yearly}}"
+                    Padding="7,0">
+                    YR
+                  </RadioButton>
+                </StackPanel>
+              </Border>
+            </Grid>
+          </Border>
+        </Grid>
+
+        <!-- Chart -->
+        <Grid Grid.Row="1" Margin="40,0,40,27" MinHeight="244">
+
+          <Border Background="{StaticResource PanelBackground}" CornerRadius="22">
+            <StackPanel Margin="23, 20">
+              <TextBlock Text="Money Spent" FontSize="24" Foreground="#1FFFFFFF" />
+              <StackPanel Orientation="Horizontal">
+                <StackPanel.Styles>
+                  <Style Selector="TextBlock">
+                    <Setter Property="FontSize" Value="36" />
+                    <Setter Property="FontWeight" Value="SemiBold" />
+                  </Style>
+                </StackPanel.Styles>
+                <TextBlock Text="$" Foreground="#26FFFFFF" />
+                <TextBlock Text="{Binding ChartData.TotalSpent, StringFormat=\{0:N2\}}" Foreground="#E61543" />
+              </StackPanel>
+            </StackPanel>
+          </Border>
+          <Border
+            Classes="RoundedSwitchesGroup"
+            BorderBrush="White"
+            Margin="0, 15, 17, 0"
+            Height="23">
+            <Border.Background>
+              <SolidColorBrush Color="White" Opacity=".1" />
+            </Border.Background>
+            <Border.Styles>
+              <Style Selector="Border.RoundedSwitchesGroup RadioButton">
+                <Setter Property="Foreground" Value="#4E4E4E" />
+              </Style>
+              <Style Selector="Border.RoundedSwitchesGroup RadioButton:pointerover">
+                <Setter Property="Foreground" Value="#88FFFFFF" />
+              </Style>
+              <Style Selector="Border.RoundedSwitchesGroup RadioButton:checked">
+                <Setter Property="Foreground" Value="White" />
+              </Style>
+            </Border.Styles>
+
+            <StackPanel Orientation="Horizontal">
+              <RadioButton
+                FontSize="14"
+                Padding="9,0"
+                Command="{Binding ChangeChartDisplayPeriodCommand}"
+                CommandParameter="{x:Static vm:StatsPeriodRange.Daily}"
+                IsChecked="{Binding ChartDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Daily}}">
+                DD
+              </RadioButton>
+              <Rectangle />
+              <RadioButton
+                FontSize="14"
+                Command="{Binding ChangeChartDisplayPeriodCommand}"
+                CommandParameter="{x:Static vm:StatsPeriodRange.Monthly}"
+                IsChecked="{Binding ChartDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Monthly}}">
+                MM
+              </RadioButton>
+              <Rectangle />
+              <RadioButton
+                Command="{Binding ChangeChartDisplayPeriodCommand}"
+                CommandParameter="{x:Static vm:StatsPeriodRange.Yearly}"
+                IsChecked="{Binding ChartDisplayPeriod, Mode=OneWay, Converter={x:Static converters:EnumExpectedValueToBooleanConverter.Instance}, ConverterParameter={x:Static vm:StatsPeriodRange.Yearly}}"
+                FontSize="14"
+                Padding="9,0">
+                YR
+              </RadioButton>
+            </StackPanel>
+          </Border>
+          <oxy:Plot
+            Height="174"
+            IsLegendVisible="False"
+            Background="Transparent"
+            VerticalAlignment="Bottom"
+            BorderThickness="0"
+            ClipToBounds="False"
+            PlotAreaBorderThickness="0"
+            x:Name="Chart"
+            TitleToolTip="Custom title tool tip via xaml">
+            <oxy:Plot.Series>
+              <oxy:LineSeries
+                Items="{Binding ChartData.Entries}"
+                Title="Average"
+                DataFieldX="SpendingDate"
+                DataFieldY="Spending"
+                Color="#E61543"
+                StrokeThickness="3" />
+            </oxy:Plot.Series>
+            <oxy:Plot.Axes>
+              <oxy:LinearAxis
+                Position="Left"
+                TickStyle="None"
+                IsAxisVisible="False"
+                Maximum="{Binding ChartData.MaxSpent}"
+                Minimum="0" />
+              <oxy:DateTimeAxis
+                Position="Bottom"
+                TickStyle="None"
+                IsAxisVisible="False"
+                Maximum="{Binding MaxDate}"
+                Minimum="{Binding MinDate}" />
+            </oxy:Plot.Axes>
+            <oxy:Plot.DefaultTrackerTemplate>
+              <ControlTemplate>
+                <!--<oxy:TrackerControl Position="{Binding Position}" LineExtents="{Binding PlotModel.PlotArea}">
+              <oxy:TrackerControl.Content>
+                <TextBlock Text="{Binding }" Margin="7" />
+              </oxy:TrackerControl.Content>
+            </oxy:TrackerControl>-->
+                <Canvas>
+                  <Grid Canvas.Left="{Binding Position.X}" Canvas.Top="{Binding Position.Y}">
+                    <Ellipse Fill="White" Width="12" Height="12" HorizontalAlignment="Left" VerticalAlignment="Top">
+                      <Ellipse.RenderTransform>
+                        <TranslateTransform X="-6" Y="-6" />
+                      </Ellipse.RenderTransform>
+                    </Ellipse>
+
+                    <Ellipse Fill="Black" Width="8" Height="8" HorizontalAlignment="Left" VerticalAlignment="Top">
+                      <Ellipse.RenderTransform>
+                        <TranslateTransform X="-4" Y="-4" />
+                      </Ellipse.RenderTransform>
+                    </Ellipse>
+
+                    <Border Margin="-60 -100 0 0" CornerRadius="5" Background="#131313" Height="59" Width="121">
+                      <Grid>
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="-1">
+                          <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="2">
+                            <TextBlock Text="$" FontSize="18" Foreground="#14FFFFFF" FontWeight="SemiBold" />
+                            <TextBlock Text="{Binding Item.Spending, StringFormat=\{0:N2\}}" FontSize="18"
+                                       Foreground="#50FFFFFF" FontWeight="SemiBold" />
+                          </StackPanel>
+                          <TextBlock Text="{Binding Item.SpendingDate}" FontSize="10" Foreground="#14FFFFFF"
+                                     HorizontalAlignment="Center" FontWeight="SemiBold" />
+                        </StackPanel>
+                        <Path
+                          Data="M12.5 7L0.808657 0.249998L24.1913 0.25L12.5 7Z"
+                          VerticalAlignment="Bottom"
+                          Fill="#131313"
+                          Width="27"
+                          Height="9"
+                          Margin="0,0,0,-5" />
+
+                      </Grid>
+                    </Border>
+
+                  </Grid>
+                </Canvas>
+              </ControlTemplate>
+            </oxy:Plot.DefaultTrackerTemplate>
+          </oxy:Plot>
+        </Grid>
+
+        <!-- Checkouts -->
+        <Grid Grid.Row="2" Height="147" RowDefinitions="Auto, Auto" Margin="0, 0, 20, 0">
+          <Grid.Styles>
+            <Style Selector="ctrl|CarouselLikeListBox ScrollBar /template/ RepeatButton > Path">
+              <Setter Property="Fill" Value="#2D2D2D" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ScrollBar /template/ RepeatButton:pointerover > Path">
+              <Setter Property="Fill" Value="#3D3D3D" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem">
+              <Setter Property="Padding" Value="0" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:pointerover /template/ Border">
+              <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected /template/ Border">
+              <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus /template/ Border">
+              <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:pointerover /template/ Border">
+              <Setter Property="Background" Value="Transparent" />
+            </Style>
+            <Style Selector="ctrl|CarouselLikeListBox ListBoxItem:selected:focus:pointerover /template/ Border">
+              <Setter Property="Background" Value="Transparent" />
+            </Style>
+          </Grid.Styles>
+          <TextBlock Text="Checkouts" Classes="SecondAccentHeading" Margin="40,0,0,17" />
+          <ctrl:CarouselLikeListBox Items="{Binding Products}" Grid.Row="1" />
+        </Grid>
+      </Grid>
+    </ScrollViewer>
+  </Grid>
+</UserControl>
